@@ -1,51 +1,28 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameCoordinator {
-    private final BriscolaDeck tableDeck;
+    private final List<Player> players = new ArrayList<>();
+    private int currentPlayer;
 
     public GameCoordinator() {
-        this.tableDeck = BriscolaDeck.empty();
-        initDeck();
+        this.currentPlayer = 0;
     }
 
-    public BriscolaDeck getBriscolaDeck() {
-        return tableDeck;
+    public void play() {
+        while (doAction()) ;
     }
 
-    public Player takeMultipleCards(Integer num, Player player) {
-        for (int i = 0; i < num; i++) {
-            player = takeCard(player);
-        }
-        return player;
+    private boolean doAction() {
+        this.currentPlayer = opponentPlayer(currentPlayer);
+        return true;
     }
 
-    public Player takeCard(Player player) {
-        PlayerDeck deck = player.getPlayerDeck();
-        deck.insertCard(tableDeck.removeCard());
-        player.setPlayerDeck(deck);
-        return player;
-    }
-
-    /*public Player playCard(Player player, int i) {
-        PlayerDeck playerDeck = player.getPlayerDeck();
-        Card toPull = playerDeck.getCards().remove(i);
-
-        return player;
-    }*/
-
-    private void initDeck() {
-        for (int i = 0; i < 4; i++) {
-            tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.A));
-
-            for (int j = 1; j < 10; j++) {
-                tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.values()[j]));
-            }
-        }
-    }
-
-    public void setAsso() {
-        tableDeck.setAsso();
+    private int opponentPlayer(int i) {
+        return (i + 1) % 2;
     }
 }

@@ -1,38 +1,44 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultPlayer;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
-
-import java.util.ArrayList;
-import java.util.List;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
 
 public class GameController {
-    private final List<Player> players = new ArrayList<>();
-    private GameCoordinator gameCoordinator;
-    private int currentPlayer;
+    private final BriscolaDeck tableDeck;
 
     public GameController() {
-        initGameCoordinator();
-        genPlayer();
-        this.currentPlayer = 0;
+        this.tableDeck = BriscolaDeck.empty();
+        initDeck();
     }
 
-    public void play() {
-        while (doAction()) ;
+    public BriscolaDeck getBriscolaDeck() {
+        return tableDeck;
     }
 
-    private boolean doAction() {
-        return true;
+    public Player takeMultipleCards(Integer num, Player player) {
+        for (int i = 0; i < num; i++) {
+            player = takeCard(player);
+        }
+        return player;
     }
 
-    private void initGameCoordinator() {
-        gameCoordinator = new GameCoordinator();
+    public Player takeCard(Player player) {
+        PlayerDeck deck = player.getPlayerDeck();
+        deck.insertCard(tableDeck.removeCard());
+        player.setPlayerDeck(deck);
+        return player;
     }
 
-    private void genPlayer() {
-        Player player1 = new DefaultPlayer(0, "Davide");
-        Player player2 = new DefaultPlayer(1, "Riccardo");
-        this.players.add(player1);
-        this.players.add(player2);
+    private void initDeck() {
+        for (int i = 0; i < 4; i++) {
+            tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.A));
+
+            for (int j = 1; j < 10; j++) {
+                tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.values()[j]));
+            }
+        }
+    }
+
+    public void setAsso() {
+        tableDeck.setAsso();
     }
 }

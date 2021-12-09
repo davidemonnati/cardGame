@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CarteBriscolaTest {
     @Test
-    void testCardCreation() {
+    void cardCreationTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
         assertNotNull(card);
         assertEquals(card.getColor(), CarteBriscola.Color.BLACK);
@@ -17,19 +17,19 @@ public class CarteBriscolaTest {
     }
 
     @Test
-    void testGetColor() {
+    void getColorTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
         assertEquals(card.getColor(), CarteBriscola.Color.BLACK);
     }
 
     @Test
-    void testGetSeed() {
+    void getSeedTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
         assertEquals(card.getSeedValue(), CarteBriscola.Seed.COPPE);
     }
 
     @Test
-    void testGetRank() {
+    void getRankTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
         assertEquals(card.getRankValue(), CarteBriscola.Rank.RE);
     }

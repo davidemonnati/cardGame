@@ -17,7 +17,7 @@ public class PlayerTest {
     }
 
     @Test
-    void testScore() {
+    void scoreTest() {
         DefaultPlayer davide = new DefaultPlayer(0, "Davide");
         davide.setScore(10);
         assertEquals(davide.getScore(), 10);
