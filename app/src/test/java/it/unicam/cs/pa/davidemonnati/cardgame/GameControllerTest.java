@@ -50,6 +50,17 @@ public class GameControllerTest {
         assertEquals(player.getPlayerDeck().getCards().size(), cards);
     }
 
+    @Test
+    void playCardTest() {
+        Player player = getPlayer();
+        GameController gameCoordinator = new GameController();
+        gameCoordinator.takeMultipleCards(3, player);
+        Card cardToPlay = player.getPlayerDeck().getCards().get(2);
+        gameCoordinator.playCard(player, 2);
+        assertEquals(player.getPlayerDeck().getCards().search(cardToPlay), -1);
+        assertEquals(gameCoordinator.getBriscolaDeck().getPlayer1ThrowingCard(), cardToPlay);
+    }
+
     private Player getPlayer() {
         return new DefaultPlayer(0, "Davide");
     }

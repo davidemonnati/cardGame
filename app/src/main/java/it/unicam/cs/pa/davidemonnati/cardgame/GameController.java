@@ -28,6 +28,14 @@ public class GameController {
         return player;
     }
 
+    public Player playCard(Player player, Integer pos) {
+        PlayerDeck playerDeck = player.getPlayerDeck();
+        Card toPlay = playerDeck.removeCard(pos);
+        tableDeck.playCard(player.getId(), toPlay);
+        player.setPlayerDeck(playerDeck);
+        return player;
+    }
+
     private void initDeck() {
         for (int i = 0; i < 4; i++) {
             tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.A));
