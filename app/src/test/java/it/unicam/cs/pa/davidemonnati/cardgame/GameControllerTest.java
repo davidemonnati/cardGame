@@ -6,19 +6,14 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.PlayerDeck;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class GameControllerTest {
-    // Player player1 = new DefaultPlayer(0, "davide");
-    // Player player2 = new DefaultPlayer(1, "riccardo");
-
     @Test
     void initDeckTest() {
         GameController briscolaCoordinator = new GameController();
         PlayerDeck deck = briscolaCoordinator.getBriscolaDeck();
-        assertTrue(deck instanceof PlayerDeck);
         assertEquals(deck.getSize(), 40);
     }
 
@@ -28,6 +23,18 @@ public class GameControllerTest {
         Card actual = gameCoordinator.getBriscolaDeck().getCards().get(39);
         gameCoordinator.setAsso();
         assertEquals(gameCoordinator.getBriscolaDeck().getAsso(), actual);
+    }
+
+    @Test
+    void takeCardEmptyDeckTest() {
+        Player player = getPlayer();
+        GameController gameCoordinator = new GameController();
+        for (int i = 0; i <= 39; i++) { // svuoto il mazzo nel tavolo
+            gameCoordinator.takeCard(player);
+        }
+        assertEquals(gameCoordinator.getDeckSize(), 0);
+        gameCoordinator.setAsso();
+        assertNull(gameCoordinator.getAsso());
     }
 
     @Test

@@ -7,6 +7,8 @@ public interface Player {
 
     PlayerDeck getPlayerDeck();
 
+    int getPlayerDeckSize();
+
     void setPlayerDeck(PlayerDeck playerDeck);
 
     void setScore(int score);

@@ -28,6 +28,11 @@ public class DefaultPlayer implements Player {
     }
 
     @Override
+    public int getPlayerDeckSize() {
+        return playerDeck.getSize();
+    }
+
+    @Override
     public void setPlayerDeck(PlayerDeck playerDeck) {
         this.playerDeck = playerDeck;
     }

@@ -22,18 +22,19 @@ public class GameController {
     }
 
     public Player takeCard(Player player) {
-        PlayerDeck deck = player.getPlayerDeck();
-        deck.insertCard(tableDeck.removeCard());
-        player.setPlayerDeck(deck);
+        if (getDeckSize() > 0) {
+            PlayerDeck deck = player.getPlayerDeck();
+            deck.insertCard(tableDeck.removeCard());
+            player.setPlayerDeck(deck);
+        }
         return player;
     }
 
-    public Player playCard(Player player, Integer pos) {
+    public void playCard(Player player, Integer pos) {
         PlayerDeck playerDeck = player.getPlayerDeck();
         Card toPlay = playerDeck.removeCard(pos);
         tableDeck.playCard(player.getId(), toPlay);
         player.setPlayerDeck(playerDeck);
-        return player;
     }
 
     private void initDeck() {
@@ -44,9 +45,19 @@ public class GameController {
                 tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.values()[j]));
             }
         }
+        tableDeck.randomizeDeck();
     }
 
     public void setAsso() {
-        tableDeck.setAsso();
+        if (getDeckSize() > 0)
+            tableDeck.setAsso();
+    }
+
+    public Card getAsso() {
+        return tableDeck.getAsso();
+    }
+
+    public int getDeckSize() {
+        return tableDeck.getSize();
     }
 }

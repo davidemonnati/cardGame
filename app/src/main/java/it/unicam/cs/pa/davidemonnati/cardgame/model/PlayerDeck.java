@@ -3,14 +3,14 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model;
 import java.util.Stack;
 
 public class PlayerDeck {
-    protected Stack<Card> cards = new Stack<>();
+    protected Stack<Card> cards;
 
     protected PlayerDeck(Stack<Card> cards) {
         this.cards = cards;
     }
 
     public static PlayerDeck empty() {
-        return new PlayerDeck(new Stack());
+        return new PlayerDeck(new Stack<>());
     }
 
     public void insertCard(Card card) {

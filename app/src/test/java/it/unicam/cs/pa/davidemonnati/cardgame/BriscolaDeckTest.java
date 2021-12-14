@@ -3,14 +3,20 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BriscolaDeckTest {
     @Test
     void creationBriscolaDeckTest() {
         BriscolaDeck briscolaDeck = BriscolaDeck.empty();
         assertNotNull(briscolaDeck);
+    }
+
+    @Test
+    void initThrowingCardsTest() {
+        BriscolaDeck briscolaDeck = BriscolaDeck.empty();
+        briscolaDeck.initThrowingCards();
+        assertNotNull(briscolaDeck.getThrowingCards());
     }
 
     @Test
