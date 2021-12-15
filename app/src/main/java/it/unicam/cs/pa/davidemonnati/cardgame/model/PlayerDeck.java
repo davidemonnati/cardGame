@@ -29,7 +29,15 @@ public class PlayerDeck {
         return cards.size();
     }
 
-    public Stack<Card> getCards() {
-        return cards;
+    public Card getCard(int pos) {
+        return cards.get(pos);
     }
+
+    public int searchCard(Card card) {
+        return cards.search(card);
+    }
+
+    /*public Stack<Card> getCards() {
+        return cards;
+    }*/
 }

@@ -44,10 +44,6 @@ public class BriscolaDeck extends PlayerDeck {
         throwingCards[i] = card;
     }
 
-    public Card[] getThrowingCards() {
-        return throwingCards;
-    }
-
     public void randomizeDeck() {
         Collections.shuffle(cards);
     }

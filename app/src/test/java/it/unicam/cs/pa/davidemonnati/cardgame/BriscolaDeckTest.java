@@ -12,12 +12,14 @@ public class BriscolaDeckTest {
         assertNotNull(briscolaDeck);
     }
 
-    @Test
-    void initThrowingCardsTest() {
+    /*@Test
+    void throwingCardsNotNullTest() {
         BriscolaDeck briscolaDeck = BriscolaDeck.empty();
         briscolaDeck.initThrowingCards();
+        assertNotNull(briscolaDeck.getPlayer1ThrowingCard());
+        assertNotNull(briscolaDeck.getPlayer2ThrowingCard());
         assertNotNull(briscolaDeck.getThrowingCards());
-    }
+    }*/
 
     @Test
     void playCardTest() {
@@ -25,11 +27,11 @@ public class BriscolaDeckTest {
         BriscolaDeck playerDeck = getDeck();
         player.setPlayerDeck(playerDeck);
         int pos = 2;
-        Card cardToPlay = playerDeck.getCards().get(pos);
-        PlayerDeck actualPLayerDeck = player.getPlayerDeck();
-        playerDeck.playCard(player.getId(), actualPLayerDeck.getCards().remove(pos));
-        assertEquals(actualPLayerDeck.getCards().search(cardToPlay), -1);
-        assertEquals(actualPLayerDeck.getCards().size(), 3);
+        Card cardToPlay = playerDeck.getCard(pos);
+        PlayerDeck actualPlayerDeck = player.getPlayerDeck();
+        playerDeck.playCard(player.getId(), actualPlayerDeck.removeCard(pos));
+        assertEquals(actualPlayerDeck.searchCard(cardToPlay), -1);
+        assertEquals(actualPlayerDeck.getSize(), 3);
         assertEquals(playerDeck.getPlayer1ThrowingCard(), cardToPlay);
     }
 

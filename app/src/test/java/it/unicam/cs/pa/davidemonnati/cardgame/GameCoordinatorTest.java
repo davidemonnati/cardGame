@@ -32,11 +32,11 @@ public class GameCoordinatorTest {
         Player player1 = getPlayers().get(0);
         Player player2 = getPlayers().get(1);
         player1.setPlayerDeck(getSamplePlayerDeck());
-        assertEquals(player1.getPlayerDeck().getCards().size(), 3);
-        Card cardToPlay = player1.getPlayerDeck().getCards().get(pos);
+        assertEquals(player1.getPlayerDeck().getSize(), 3);
+        Card cardToPlay = player1.getPlayerDeck().getCard(pos);
         throwCard(player1, pos);
-        assertEquals(player1.getPlayerDeck().getCards().size(), 2);
-        assertEquals(player1.getPlayerDeck().getCards().search(cardToPlay), -1);
+        assertEquals(player1.getPlayerDeck().getSize(), 2);
+        assertEquals(player1.getPlayerDeck().searchCard(cardToPlay), -1);
     }
 
     @Test

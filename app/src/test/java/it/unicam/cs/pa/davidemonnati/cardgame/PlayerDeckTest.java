@@ -19,7 +19,7 @@ public class PlayerDeckTest {
         Card card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.DUE);
         PlayerDeck deck = PlayerDeck.empty();
         deck.insertCard(card);
-        assertEquals(deck.getCards().get(0), card);
+        assertEquals(deck.getCard(0), card);
     }
 
     @Test
@@ -28,12 +28,12 @@ public class PlayerDeckTest {
         Card[] cardsToInsert = getSampleDeck();
         for (int i = 0; i < 3; i++) {
             playerDeck.insertCard(cardsToInsert[i]);
-            assertTrue(playerDeck.getCards().search(cardsToInsert[i]) >= 0);
+            assertTrue(playerDeck.searchCard(cardsToInsert[i]) >= 0);
         }
 
         for (int i = 0; i < 3; i++) {
             playerDeck.removeCard(0);
-            assertFalse(playerDeck.getCards().search(cardsToInsert[i]) >= 0);
+            assertFalse(playerDeck.searchCard(cardsToInsert[i]) >= 0);
         }
         assertEquals(playerDeck.getSize(), 0);
     }
@@ -42,7 +42,6 @@ public class PlayerDeckTest {
         Card carta1 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.A);
         Card carta2 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.QUATTRO);
         Card carta3 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.SPADE, CarteBriscola.Rank.CAVALLO);
-        Card[] toInsert = new Card[]{carta1, carta2, carta3};
-        return toInsert;
+        return new Card[]{carta1, carta2, carta3};
     }
 }

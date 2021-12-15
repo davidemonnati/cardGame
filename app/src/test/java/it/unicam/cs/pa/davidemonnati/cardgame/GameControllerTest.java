@@ -20,7 +20,7 @@ public class GameControllerTest {
     @Test
     void setAssoTest() {
         GameController gameCoordinator = new GameController();
-        Card actual = gameCoordinator.getBriscolaDeck().getCards().get(39);
+        Card actual = gameCoordinator.getBriscolaDeck().getCard(39);
         gameCoordinator.setAsso();
         assertEquals(gameCoordinator.getBriscolaDeck().getAsso(), actual);
     }
@@ -42,10 +42,10 @@ public class GameControllerTest {
         Player player = getPlayer();
         GameController gameCoordinator = new GameController();
         gameCoordinator.setAsso();
-        Card actual = gameCoordinator.getBriscolaDeck().getCards().get(38);
+        Card actual = gameCoordinator.getBriscolaDeck().getCard(38);
         player = gameCoordinator.takeCard(player);
-        assertTrue(player.getPlayerDeck().getCards().search(actual) >= 0);
-        assertEquals(gameCoordinator.getBriscolaDeck().getCards().size(), 38);
+        assertTrue(player.getPlayerDeck().searchCard(actual) >= 0);
+        assertEquals(gameCoordinator.getBriscolaDeck().getSize(), 38);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class GameControllerTest {
         Player player = getPlayer();
         GameController gameCoordinator = new GameController();
         player = gameCoordinator.takeMultipleCards(cards, player);
-        assertEquals(player.getPlayerDeck().getCards().size(), cards);
+        assertEquals(player.getPlayerDeck().getSize(), cards);
     }
 
     @Test
@@ -62,9 +62,9 @@ public class GameControllerTest {
         Player player = getPlayer();
         GameController gameCoordinator = new GameController();
         gameCoordinator.takeMultipleCards(3, player);
-        Card cardToPlay = player.getPlayerDeck().getCards().get(2);
+        Card cardToPlay = player.getPlayerDeck().getCard(2);
         gameCoordinator.playCard(player, 2);
-        assertEquals(player.getPlayerDeck().getCards().search(cardToPlay), -1);
+        assertEquals(player.getPlayerDeck().searchCard(cardToPlay), -1);
         assertEquals(gameCoordinator.getBriscolaDeck().getPlayer1ThrowingCard(), cardToPlay);
     }
 

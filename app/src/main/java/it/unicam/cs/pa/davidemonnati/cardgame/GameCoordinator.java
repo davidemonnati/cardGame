@@ -44,7 +44,7 @@ public class GameCoordinator {
     }
 
     private void takeFirstCards(int playerID, int num) {
-        int playerCards = players.get(playerID).getPlayerDeck().getCards().size();
+        int playerCards = players.get(playerID).getPlayerDeck().getSize();
         if (playerCards == 0)
             gameController.takeMultipleCards(num, players.get(playerID));
     }
