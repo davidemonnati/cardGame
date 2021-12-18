@@ -36,8 +36,4 @@ public class PlayerDeck {
     public int searchCard(Card card) {
         return cards.search(card);
     }
-
-    /*public Stack<Card> getCards() {
-        return cards;
-    }*/
 }

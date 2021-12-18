@@ -40,8 +40,8 @@ public class BriscolaDeck extends PlayerDeck {
         throwingCards = new Card[2];
     }
 
-    public void playCard(int i, Card card) {
-        throwingCards[i] = card;
+    public void playCard(int playerId, Card card) {
+        throwingCards[playerId] = card;
     }
 
     public void randomizeDeck() {

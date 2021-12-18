@@ -11,34 +11,34 @@ public class CarteBriscolaTest {
     void cardCreationTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
         assertNotNull(card);
-        assertEquals(card.getColor(), CarteBriscola.Color.BLACK);
-        assertEquals(card.getSeedValue(), CarteBriscola.Seed.COPPE);
-        assertEquals(card.getRankValue(), CarteBriscola.Rank.RE);
+        assertEquals(CarteBriscola.Color.BLACK, card.getColor());
+        assertEquals(CarteBriscola.Seed.COPPE, card.getSeedValue());
+        assertEquals(CarteBriscola.Rank.RE, card.getRankValue());
     }
 
     @Test
     void getColorTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
-        assertEquals(card.getColor(), CarteBriscola.Color.BLACK);
+        assertEquals(CarteBriscola.Color.BLACK, card.getColor());
     }
 
     @Test
     void getSeedTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
-        assertEquals(card.getSeedValue(), CarteBriscola.Seed.COPPE);
+        assertEquals(CarteBriscola.Seed.COPPE, card.getSeedValue());
     }
 
     @Test
     void getRankTest() {
         CarteBriscola card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.RE);
-        assertEquals(card.getRankValue(), CarteBriscola.Rank.RE);
+        assertEquals(CarteBriscola.Rank.RE, card.getRankValue());
     }
 
     @Test
     void getScoreTest() {
         CarteBriscola card1 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.A);
         CarteBriscola card2 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.CINQUE);
-        assertEquals(card1.getRankValue().getScore(), 11);
-        assertEquals(card2.getRankValue().getScore(), 0);
+        assertEquals(11, card1.getRankValue().getScore());
+        assertEquals(0, card2.getRankValue().getScore());
     }
 }

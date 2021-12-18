@@ -19,11 +19,11 @@ public class PlayerDeckTest {
         Card card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.DUE);
         PlayerDeck deck = PlayerDeck.empty();
         deck.insertCard(card);
-        assertEquals(deck.getCard(0), card);
+        assertEquals(card, deck.getCard(0));
     }
 
     @Test
-    void popCardTest() {
+    void popRemoveCardTest() {
         PlayerDeck playerDeck = PlayerDeck.empty();
         Card[] cardsToInsert = getSampleDeck();
         for (int i = 0; i < 3; i++) {

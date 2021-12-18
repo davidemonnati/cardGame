@@ -2,7 +2,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
 public class CarteBriscola implements Card {
     public enum Seed {
-        DENARI, SPADE, COPPE, BASTONI;
+        DENARI, SPADE, COPPE, BASTONI
     }
 
     public enum Rank {
@@ -26,12 +26,12 @@ public class CarteBriscola implements Card {
     }
 
     public enum Color {
-        BLACK;
+        BLACK
     }
 
-    private Color color;
-    private Seed seed;
-    private Rank rank;
+    private final Color color;
+    private final Seed seed;
+    private final Rank rank;
 
     public CarteBriscola(Color color, Seed seed, Rank rank) {
         this.color = color;
@@ -43,15 +43,23 @@ public class CarteBriscola implements Card {
         this(Color.BLACK, seed, rank);
     }
 
+    @Override
     public Color getColor() {
         return color;
     }
 
+    @Override
     public Seed getSeedValue() {
         return seed;
     }
 
+    @Override
     public Rank getRankValue() {
         return rank;
+    }
+
+    @Override
+    public int getCardScore() {
+        return rank.getScore();
     }
 }

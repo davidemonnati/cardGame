@@ -6,4 +6,6 @@ public interface Card {
     CarteBriscola.Seed getSeedValue();
 
     CarteBriscola.Rank getRankValue();
+
+    int getCardScore();
 }
