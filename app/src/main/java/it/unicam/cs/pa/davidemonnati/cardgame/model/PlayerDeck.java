@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+
 import java.util.Stack;
 
 public class PlayerDeck {
@@ -29,7 +31,11 @@ public class PlayerDeck {
         return cards.size();
     }
 
-    public Stack<Card> getCards() {
-        return cards;
+    public Card getCard(int pos) {
+        return cards.get(pos);
+    }
+
+    public int searchCard(Card card) {
+        return cards.search(card);
     }
 }

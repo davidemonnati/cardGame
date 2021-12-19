@@ -12,18 +12,18 @@ public class PlayerTest {
     void playerCreationTest() {
         DefaultPlayer davide = new DefaultPlayer(0, "Davide");
         assertNotNull(davide);
-        assertEquals(davide.getId(), 0);
-        assertEquals(davide.getUsername(), "Davide");
+        assertEquals(0, davide.getId());
+        assertEquals("Davide", davide.getUsername());
     }
 
     @Test
     void scoreTest() {
         DefaultPlayer davide = new DefaultPlayer(0, "Davide");
         davide.setScore(10);
-        assertEquals(davide.getScore(), 10);
+        assertEquals(10, davide.getScore());
         davide.setScore(5);
-        assertEquals(davide.getScore(), 15);
+        assertEquals(15, davide.getScore());
         davide.resetScore();
-        assertEquals(davide.getScore(), 0);
+        assertEquals(0, davide.getScore());
     }
 }

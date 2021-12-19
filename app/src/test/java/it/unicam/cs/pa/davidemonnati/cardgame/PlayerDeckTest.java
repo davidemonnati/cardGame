@@ -1,8 +1,12 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.CarteBriscola;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.PlayerDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Asso;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Cavallo;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Liscio;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -16,33 +20,33 @@ public class PlayerDeckTest {
 
     @Test
     void insertCardTest() {
-        Card card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.DUE);
+        Card card = new Liscio(BriscolaSeed.BASTONI, BriscolaRank.DUE);
         PlayerDeck deck = PlayerDeck.empty();
         deck.insertCard(card);
-        assertEquals(deck.getCards().get(0), card);
+        assertEquals(card, deck.getCard(0));
     }
 
     @Test
-    void popCardTest() {
+    void popRemoveCardTest() {
         PlayerDeck playerDeck = PlayerDeck.empty();
         Card[] cardsToInsert = getSampleDeck();
         for (int i = 0; i < 3; i++) {
             playerDeck.insertCard(cardsToInsert[i]);
-            assertTrue(playerDeck.getCards().search(cardsToInsert[i]) >= 0);
+            assertTrue(playerDeck.searchCard(cardsToInsert[i]) >= 0);
         }
+        assertEquals(3, playerDeck.getSize());
 
         for (int i = 0; i < 3; i++) {
             playerDeck.removeCard(0);
-            assertFalse(playerDeck.getCards().search(cardsToInsert[i]) >= 0);
+            assertFalse(playerDeck.searchCard(cardsToInsert[i]) >= 0);
         }
-        assertEquals(playerDeck.getSize(), 0);
+        assertEquals(0, playerDeck.getSize());
     }
 
     private Card[] getSampleDeck() {
-        Card carta1 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.A);
-        Card carta2 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.QUATTRO);
-        Card carta3 = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.SPADE, CarteBriscola.Rank.CAVALLO);
-        Card[] toInsert = new Card[]{carta1, carta2, carta3};
-        return toInsert;
+        Card carta1 = new Asso(BriscolaSeed.BASTONI);
+        Card carta2 = new Liscio(BriscolaSeed.COPPE, BriscolaRank.QUATTRO);
+        Card carta3 = new Cavallo(BriscolaSeed.SPADE);
+        return new Card[]{carta1, carta2, carta3};
     }
 }

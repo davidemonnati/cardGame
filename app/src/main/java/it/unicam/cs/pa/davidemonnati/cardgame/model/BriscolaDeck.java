@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+
 import java.util.Collections;
 import java.util.Stack;
 
@@ -40,12 +42,8 @@ public class BriscolaDeck extends PlayerDeck {
         throwingCards = new Card[2];
     }
 
-    public void playCard(int i, Card card) {
-        throwingCards[i] = card;
-    }
-
-    public Card[] getThrowingCards() {
-        return throwingCards;
+    public void playCard(int playerId, Card card) {
+        throwingCards[playerId] = card;
     }
 
     public void randomizeDeck() {

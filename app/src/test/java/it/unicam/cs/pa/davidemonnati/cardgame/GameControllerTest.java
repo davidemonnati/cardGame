@@ -1,74 +1,61 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Card;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.BriscolaDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultPlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.PlayerDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class GameControllerTest {
-    @Test
-    void initDeckTest() {
-        GameController briscolaCoordinator = new GameController();
-        PlayerDeck deck = briscolaCoordinator.getBriscolaDeck();
-        assertEquals(deck.getSize(), 40);
+    private final BriscolaDeck tableDeck;
+
+    public GameControllerTest() {
+        this.tableDeck = BriscolaDeck.empty();
     }
 
     @Test
-    void setAssoTest() {
-        GameController gameCoordinator = new GameController();
-        Card actual = gameCoordinator.getBriscolaDeck().getCards().get(39);
-        gameCoordinator.setAsso();
-        assertEquals(gameCoordinator.getBriscolaDeck().getAsso(), actual);
+    void gameControllerCreationTest() {
+        GameController gameController = new GameController(getPlayers());
+        assertNotNull(gameController);
     }
 
     @Test
-    void takeCardEmptyDeckTest() {
-        Player player = getPlayer();
-        GameController gameCoordinator = new GameController();
-        for (int i = 0; i <= 39; i++) { // svuoto il mazzo nel tavolo
-            gameCoordinator.takeCard(player);
+    void createDeckTest() {
+        initTableDeck();
+        assertEquals(40, tableDeck.getSize());
+    }
+
+    private List<Player> getPlayers() {
+        List<Player> players = new ArrayList<>();
+        Player player1 = new DefaultPlayer(0, "Davide");
+        Player player2 = new DefaultPlayer(1, "Riccardo");
+        players.add(player1);
+        players.add(player2);
+        return players;
+    }
+
+    private void initTableDeck() {
+        for (int i = 0; i < 4; i++) {
+            tableDeck.insertCard(new Asso(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Tre(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Fante(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Cavallo(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Re(BriscolaSeed.values()[i]));
+
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
         }
-        assertEquals(gameCoordinator.getDeckSize(), 0);
-        gameCoordinator.setAsso();
-        assertNull(gameCoordinator.getAsso());
-    }
-
-    @Test
-    void takeCardTest() { // carta che viene presa dal giocatore
-        Player player = getPlayer();
-        GameController gameCoordinator = new GameController();
-        gameCoordinator.setAsso();
-        Card actual = gameCoordinator.getBriscolaDeck().getCards().get(38);
-        player = gameCoordinator.takeCard(player);
-        assertTrue(player.getPlayerDeck().getCards().search(actual) >= 0);
-        assertEquals(gameCoordinator.getBriscolaDeck().getCards().size(), 38);
-    }
-
-    @Test
-    void takeMultipleCardsTest() {
-        int cards = 3;
-        Player player = getPlayer();
-        GameController gameCoordinator = new GameController();
-        player = gameCoordinator.takeMultipleCards(cards, player);
-        assertEquals(player.getPlayerDeck().getCards().size(), cards);
-    }
-
-    @Test
-    void playCardTest() {
-        Player player = getPlayer();
-        GameController gameCoordinator = new GameController();
-        gameCoordinator.takeMultipleCards(3, player);
-        Card cardToPlay = player.getPlayerDeck().getCards().get(2);
-        gameCoordinator.playCard(player, 2);
-        assertEquals(player.getPlayerDeck().getCards().search(cardToPlay), -1);
-        assertEquals(gameCoordinator.getBriscolaDeck().getPlayer1ThrowingCard(), cardToPlay);
-    }
-
-    private Player getPlayer() {
-        return new DefaultPlayer(0, "Davide");
+        tableDeck.randomizeDeck();
     }
 }
