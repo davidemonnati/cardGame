@@ -1,6 +1,13 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Asso;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Cavallo;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Fante;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Liscio;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -17,7 +24,7 @@ public class BriscolaDeckTest {
 
     @Test
     void insertCardTest() {
-        Card card = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.DUE);
+        Card card = new Liscio(BriscolaSeed.BASTONI, BriscolaRank.DUE);
         BriscolaDeck deck = BriscolaDeck.empty();
         deck.insertCard(card);
         assertEquals(card, deck.getCard(0));
@@ -34,6 +41,7 @@ public class BriscolaDeckTest {
     @Test
     void removeCardTest() {
         BriscolaDeck briscolaDeck = getSimpleDeck();
+        assertEquals(4, briscolaDeck.getSize());
         Card removedCard = briscolaDeck.removeCard();
         assertEquals(3, briscolaDeck.getSize());
         assertEquals(-1, briscolaDeck.searchCard(removedCard));
@@ -41,19 +49,22 @@ public class BriscolaDeckTest {
 
     @Test
     void playCardTest() {
-        Player player = new DefaultPlayer(0, "Davide");
+        List<Player> players = getPlayers();
         BriscolaDeck briscolaDeck = BriscolaDeck.empty();
-        Card toPlay = new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.A);
-        briscolaDeck.playCard(player.getId(), toPlay);
-        assertEquals(toPlay, briscolaDeck.getPlayer1ThrowingCard());
+        Card card1 = new Asso(BriscolaSeed.BASTONI);
+        Card card2 = new Fante(BriscolaSeed.DENARI);
+        briscolaDeck.playCard(players.get(0).getId(), card1);
+        briscolaDeck.playCard(players.get(1).getId(), card2);
+        assertEquals(card1, briscolaDeck.getPlayer1ThrowingCard());
+        assertEquals(card2, briscolaDeck.getPlayer2ThrowingCard());
     }
 
     private BriscolaDeck getSimpleDeck() {
         BriscolaDeck deck = BriscolaDeck.empty();
-        deck.insertCard(new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.BASTONI, CarteBriscola.Rank.A));
-        deck.insertCard(new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.COPPE, CarteBriscola.Rank.QUATTRO));
-        deck.insertCard(new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.SPADE, CarteBriscola.Rank.CAVALLO));
-        deck.insertCard(new CarteBriscola(CarteBriscola.Color.BLACK, CarteBriscola.Seed.DENARI, CarteBriscola.Rank.FANTE));
+        deck.insertCard(new Asso(BriscolaSeed.BASTONI));
+        deck.insertCard(new Liscio(BriscolaSeed.COPPE, BriscolaRank.DUE));
+        deck.insertCard(new Cavallo(BriscolaSeed.SPADE));
+        deck.insertCard(new Fante(BriscolaSeed.DENARI));
         return deck;
     }
 

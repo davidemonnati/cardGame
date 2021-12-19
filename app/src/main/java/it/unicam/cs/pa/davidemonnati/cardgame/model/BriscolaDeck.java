@@ -1,5 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+
 import java.util.Collections;
 import java.util.Stack;
 

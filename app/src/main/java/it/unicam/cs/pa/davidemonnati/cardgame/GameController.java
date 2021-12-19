@@ -1,6 +1,10 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +32,17 @@ public class GameController {
 
     private void initTableDeck() {
         for (int i = 0; i < 4; i++) {
-            tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.A));
+            tableDeck.insertCard(new Asso(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Tre(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Fante(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Cavallo(BriscolaSeed.values()[i]));
+            tableDeck.insertCard(new Re(BriscolaSeed.values()[i]));
 
-            for (int j = 1; j < 10; j++) {
-                tableDeck.insertCard(new CarteBriscola(CarteBriscola.Seed.values()[i], CarteBriscola.Rank.values()[j]));
-            }
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
+            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
         }
         tableDeck.randomizeDeck();
     }
@@ -95,9 +105,9 @@ public class GameController {
     private void rule() {
         Card player1ThrowedCard = tableDeck.getPlayer1ThrowingCard();
         Card player2ThrowedCard = tableDeck.getPlayer2ThrowingCard();
-        int scoreCard1 = player1ThrowedCard.getCardScore();
-        int scoreCard2 = player2ThrowedCard.getCardScore();
-        if (player1ThrowedCard.getCardScore() > player2ThrowedCard.getCardScore()) {
+        int scoreCard1 = player1ThrowedCard.getScore();
+        int scoreCard2 = player2ThrowedCard.getScore();
+        if (player1ThrowedCard.getScore() > player2ThrowedCard.getScore()) {
             players.get(0).setScore(scoreCard1 + scoreCard2);
         } else {
             players.get(1).setScore(scoreCard1 + scoreCard2);
