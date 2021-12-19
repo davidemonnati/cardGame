@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
+    private final Status status;
     private final List<Player> players;
     private final BriscolaDeck tableDeck;
     private List<PlayerDeck> playerDecks;
     private int currentPlayer;
 
     public GameController(List<Player> players) {
+        this.status = new Status();
         this.players = players;
         this.tableDeck = BriscolaDeck.empty();
         initTableDeck();
@@ -62,22 +64,18 @@ public class GameController {
     }
 
     public void play() {
-        boolean status = true;
         initPlayersCard();
 
         do {
             for (int i = 0; i < 2; i++) {
-                status = doAction();
-                if (!status)
+                if (!doAction())
+                    status.changeStatus();
+
+                if (!status.isStatus())
                     break;
             }
             rule();
-        } while (status);
-
-        System.out.println("Ho finito");
-        System.out.println("Punteggio player1: " + players.get(0).getScore());
-        System.out.println("Punteggio player2: " + players.get(1).getScore());
-        System.out.println("Totale: " + (players.get(1).getScore() + players.get(0).getScore()));
+        } while (status.isStatus());
     }
 
     private boolean doAction() {
