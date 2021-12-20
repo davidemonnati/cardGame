@@ -1,10 +1,13 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaRank;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaSeed;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,47 +15,48 @@ import java.util.List;
 public class GameController {
     private final Status status;
     private final List<Player> players;
-    private final BriscolaDeck tableDeck;
-    private List<PlayerDeck> playerDecks;
+    private Table table;
+    private List<Hand> hands;
     private int currentPlayer;
 
     public GameController(List<Player> players) {
         this.status = new Status();
         this.players = players;
-        this.tableDeck = BriscolaDeck.empty();
         initTableDeck();
-        initPlayerDecks();
+        initHands();
         this.currentPlayer = 0;
     }
 
     private void takeCard() {
-        if (tableDeck.getSize() > 0) {
-            Card toTake = tableDeck.removeCard();
-            playerDecks.get(currentPlayer).insertCard(toTake);
+        if (table.tableDeckSize() > 0) {
+            Card toTake = table.takeCardFromDeck();
+            hands.get(currentPlayer).takeCard(toTake);
         }
     }
 
     private void initTableDeck() {
+        TableDeck tableDeck = DefaultTableDeck.empty();
         for (int i = 0; i < 4; i++) {
-            tableDeck.insertCard(new Asso(BriscolaSeed.values()[i]));
-            tableDeck.insertCard(new Tre(BriscolaSeed.values()[i]));
-            tableDeck.insertCard(new Fante(BriscolaSeed.values()[i]));
-            tableDeck.insertCard(new Cavallo(BriscolaSeed.values()[i]));
-            tableDeck.insertCard(new Re(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Asso(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Tre(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Fante(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Cavallo(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Re(BriscolaSeed.values()[i]));
 
-            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
-            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
-            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
-            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
-            tableDeck.insertCard(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
+            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
+            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
+            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
+            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
+            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
         }
         tableDeck.randomizeDeck();
+        this.table = new Table(tableDeck);
     }
 
-    private void initPlayerDecks() {
-        this.playerDecks = new ArrayList<>();
-        playerDecks.add(PlayerDeck.empty());
-        playerDecks.add(PlayerDeck.empty());
+    private void initHands() {
+        this.hands = new ArrayList<>();
+        hands.add(new DefaultHand());
+        hands.add(new DefaultHand());
     }
 
     private void initPlayersCard() {
@@ -84,11 +88,11 @@ public class GameController {
         takeCard();
         opponentPlayer();
 
-        return playerDecks.get(currentPlayer).getSize() != 0;
+        return hands.get(currentPlayer).getSize() != 0;
     }
 
     private void takeFirstCards(Integer num) {
-        if (playerDecks.get(currentPlayer).getSize() == 0) {
+        if (hands.get(currentPlayer).getSize() == 0) {
             for (int i = 0; i < num; i++) {
                 takeCard();
             }
@@ -96,28 +100,25 @@ public class GameController {
     }
 
     private void playCard(Integer pos) {
-        Card toPlay = playerDecks.get(currentPlayer).removeCard(pos);
-        tableDeck.playCard(currentPlayer, toPlay);
+        Card toPlay = hands.get(currentPlayer).playCard(pos);
+        table.playCard(currentPlayer, toPlay);
     }
 
     private void rule() {
-        Card player1ThrowedCard = tableDeck.getPlayer1ThrowingCard();
-        Card player2ThrowedCard = tableDeck.getPlayer2ThrowingCard();
+        Card player1ThrowedCard = table.getThrowingCards()[0];
+        Card player2ThrowedCard = table.getThrowingCards()[1];
         int scoreCard1 = player1ThrowedCard.getScore();
         int scoreCard2 = player2ThrowedCard.getScore();
         if (player1ThrowedCard.getScore() > player2ThrowedCard.getScore()) {
             players.get(0).setScore(scoreCard1 + scoreCard2);
+            table.insertIntoPlayerDeck(0);
         } else {
             players.get(1).setScore(scoreCard1 + scoreCard2);
+            table.insertIntoPlayerDeck(1);
         }
-        tableDeck.initThrowingCards();
     }
 
     private void opponentPlayer() {
         this.currentPlayer = (currentPlayer + 1) % 2;
-    }
-
-    public int getCurrentPlayer() {
-        return currentPlayer;
     }
 }
