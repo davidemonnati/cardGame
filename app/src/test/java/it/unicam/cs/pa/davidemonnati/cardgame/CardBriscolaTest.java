@@ -1,10 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Asso;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Fante;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Liscio;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.Re;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Stack;
