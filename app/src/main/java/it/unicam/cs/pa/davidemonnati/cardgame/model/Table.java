@@ -1,52 +1,61 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultPlayerDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.PlayerDeck;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
 
-import java.util.ArrayList;
-import java.util.List;
+/**
+ * Rappresenta il tavolo di gioco, il quale ha la responsabilità di gestire il TableDeck,
+ * le carte che vengono giocate dai due giocatori e il mazzo delle carte che sono state aggiudicate
+ * dai giocatori.
+ */
+public interface Table {
 
-public class Table {
-    private final TableDeck tableDeck;
-    private final Card[] playedCards;
-    private List<PlayerDeck> playerDecks;
+    /**
+     * Ritorna il numero delle carte che sono presenti all'interno del TableDeck.
+     *
+     * @return valore intero corrispondente al numero di carte che ci sono nel TableDeck
+     * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck
+     */
+    int tableDeckSize();
 
-    public Table(TableDeck tableDeck) {
-        this.tableDeck = tableDeck;
-        this.playedCards = new Card[2];
-        initPlayerDeck();
-    }
+    /**
+     * Permette ad un giocatore di prendere una carta dal mazzo.
+     * In seguito alla presa la carta verrà eliminata dal TableDeck
+     *
+     * @return la prima carta che si trova in cima al mazzo
+     * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck
+     */
+    Card takeCardFromDeck();
 
-    private void initPlayerDeck() {
-        this.playerDecks = new ArrayList<>();
-        this.playerDecks.add(new DefaultPlayerDeck());
-        this.playerDecks.add(new DefaultPlayerDeck());
-    }
+    /**
+     * Permette ad un {@link Player} di giocare una {@link Card}.
+     * La {@link Card} giocata verrà passata come parametro ed inserita all'interno della posizione
+     * corrispondente all'id del {@link Player}
+     *
+     * @param currentPlayer id del player che deve giocare la carta
+     * @param card          carta che il giocatore vuole giocare
+     */
+    void playCard(int currentPlayer, Card card);
 
-    public int tableDeckSize() {
-        return tableDeck.getSize();
-    }
+    /**
+     * @return array contenete le {@link Card} che i {@link Player} hanno giocato
+     */
+    Card[] getPlayedCards();
 
-    public Card takeCardFromDeck() {
-        return tableDeck.removeCard();
-    }
+    /**
+     * In seguito ad una vincita inserisce le {@link Card} giocate che ci sono sul {@link Table} all'interno
+     * del mazzo del {@link Player} che ha vinto la mano.
+     *
+     * @param currentPlayer id del {@link Player} che ha vinto la mano
+     */
+    void insertIntoPlayerDeck(int currentPlayer);
 
-    public void playCard(int currentPlayer, Card card) {
-        playedCards[currentPlayer] = card;
-    }
-
-    public Card[] getThrowingCards() {
-        return playedCards;
-    }
-
-    public void insertIntoPlayerDeck(int currentPlayer) {
-        playerDecks.get(currentPlayer).insert(playedCards[0]);
-        playerDecks.get(currentPlayer).insert(playedCards[1]);
-    }
-
-    public PlayerDeck getPlayerDeck(int playerId) {
-        return playerDecks.get(playerId);
-    }
+    /**
+     * Ritorna il mazzo di un giocatore.
+     *
+     * @param playerId id del {@link Player} di cui si vuole ritornare tutto il deck
+     * @return PlayerDeck del giocatore
+     * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultPlayerDeck
+     */
+    PlayerDeck getPlayerDeck(int playerId);
 }

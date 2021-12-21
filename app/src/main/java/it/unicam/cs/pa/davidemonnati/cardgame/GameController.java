@@ -50,7 +50,7 @@ public class GameController {
             tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
         }
         tableDeck.randomizeDeck();
-        this.table = new Table(tableDeck);
+        this.table = new DefaultTable(tableDeck);
     }
 
     private void initHands() {
@@ -105,8 +105,8 @@ public class GameController {
     }
 
     private void rule() {
-        Card player1ThrowedCard = table.getThrowingCards()[0];
-        Card player2ThrowedCard = table.getThrowingCards()[1];
+        Card player1ThrowedCard = table.getPlayedCards()[0];
+        Card player2ThrowedCard = table.getPlayedCards()[1];
         int scoreCard1 = player1ThrowedCard.getScore();
         int scoreCard2 = player2ThrowedCard.getScore();
         if (player1ThrowedCard.getScore() > player2ThrowedCard.getScore()) {

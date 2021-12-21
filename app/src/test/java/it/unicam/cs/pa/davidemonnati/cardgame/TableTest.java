@@ -5,6 +5,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,24 +17,24 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class TableTest {
     @Test
     void creationTableTest() {
-        Table table = new Table(DefaultTableDeck.empty());
+        Table table = new DefaultTable(DefaultTableDeck.empty());
         assertNotNull(table);
     }
 
     @Test
     void playCardTest() {
-        Table table = new Table(DefaultTableDeck.empty());
+        Table table = new DefaultTable(DefaultTableDeck.empty());
         Card card1 = new Asso(BriscolaSeed.BASTONI);
         Card card2 = new Fante(BriscolaSeed.DENARI);
         table.playCard(0, card1);
         table.playCard(1, card2);
-        assertEquals(card1, table.getThrowingCards()[0]);
-        assertEquals(card2, table.getThrowingCards()[1]);
+        assertEquals(card1, table.getPlayedCards()[0]);
+        assertEquals(card2, table.getPlayedCards()[1]);
     }
 
     @Test
     void testManagePlayerDeck() {
-        Table table = new Table(getCompleteDeck());
+        Table table = new DefaultTable(getCompleteDeck());
         List<Hand> hands = new ArrayList<>();
         hands.add(new DefaultHand());
         hands.add(new DefaultHand());
@@ -49,8 +50,8 @@ public class TableTest {
         assertEquals(2, table.getPlayerDeck(0).getSize());
     }
 
-    private DefaultTableDeck getCompleteDeck() {
-        DefaultTableDeck tableDeck = DefaultTableDeck.empty();
+    private TableDeck getCompleteDeck() {
+        TableDeck tableDeck = DefaultTableDeck.empty();
         for (int i = 0; i < 4; i++) {
             tableDeck.insert(new Asso(BriscolaSeed.values()[i]));
             tableDeck.insert(new Tre(BriscolaSeed.values()[i]));
