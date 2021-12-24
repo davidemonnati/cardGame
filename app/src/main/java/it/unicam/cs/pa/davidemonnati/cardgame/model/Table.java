@@ -58,4 +58,12 @@ public interface Table {
      * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultPlayerDeck
      */
     PlayerDeck getPlayerDeck(int playerId);
+
+    /**
+     * Ogni volta che il {@link Player} si aggiudica la mano è necessario svuotare
+     * l'array <i>playedCards</i>.
+     * Questo metodo verrà utilizzato anche dal costrutture per inizializzare <i>playedCards</i>
+     * la prima volta.
+     */
+    void resetPlayedCards();
 }

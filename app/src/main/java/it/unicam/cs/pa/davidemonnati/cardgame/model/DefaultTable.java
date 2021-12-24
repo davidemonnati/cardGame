@@ -10,12 +10,12 @@ import java.util.List;
 
 public class DefaultTable implements Table {
     private final TableDeck tableDeck;
-    private final Card[] playedCards;
+    private Card[] playedCards;
     private List<PlayerDeck> playerDecks;
 
     public DefaultTable(TableDeck tableDeck) {
         this.tableDeck = tableDeck;
-        this.playedCards = new Card[2];
+        resetPlayedCards();
         initPlayerDeck();
     }
 
@@ -54,5 +54,10 @@ public class DefaultTable implements Table {
     @Override
     public PlayerDeck getPlayerDeck(int playerId) {
         return playerDecks.get(playerId);
+    }
+
+    @Override
+    public void resetPlayedCards() {
+        this.playedCards = new Card[2];
     }
 }

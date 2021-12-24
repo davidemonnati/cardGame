@@ -1,11 +1,9 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultPlayer;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaRank;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaSeed;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class GameControllerTest {
 
     @Test
     void gameControllerCreationTest() {
-        GameController gameController = new GameController(getPlayers());
+        Game gameController = new GameController(getPlayers());
         assertNotNull(gameController);
     }
 
@@ -35,8 +33,8 @@ public class GameControllerTest {
 
     private List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
-        Player player1 = new DefaultPlayer(0, "Davide");
-        Player player2 = new DefaultPlayer(1, "Riccardo");
+        Player player1 = new InteractivePlayer(0, "Davide");
+        Player player2 = new InteractivePlayer(1, "Riccardo");
         players.add(player1);
         players.add(player2);
         return players;

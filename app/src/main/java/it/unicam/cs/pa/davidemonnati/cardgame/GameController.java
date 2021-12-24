@@ -1,23 +1,23 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaRank;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaSeed;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
+import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameController {
+public class GameController implements Game {
     private final Status status;
     private final List<Player> players;
     private Table table;
     private List<Hand> hands;
     private int currentPlayer;
+    private final View view;
 
     public GameController(List<Player> players) {
         this.status = new Status();
@@ -25,13 +25,7 @@ public class GameController {
         initTableDeck();
         initHands();
         this.currentPlayer = 0;
-    }
-
-    private void takeCard() {
-        if (table.tableDeckSize() > 0) {
-            Card toTake = table.takeCardFromDeck();
-            hands.get(currentPlayer).takeCard(toTake);
-        }
+        this.view = new ConsoleView();
     }
 
     private void initTableDeck() {
@@ -59,44 +53,47 @@ public class GameController {
         hands.add(new DefaultHand());
     }
 
-    private void initPlayersCard() {
-        for (int i = 0; i < 2; i++) {
-            takeFirstCards(3);
-            opponentPlayer();
-        }
-        opponentPlayer();
-    }
-
+    @Override
     public void play() {
-        initPlayersCard();
-
-        do {
-            for (int i = 0; i < 2; i++) {
-                if (!doAction())
-                    status.changeStatus();
-
-                if (!status.isStatus())
-                    break;
+        try {
+            view.open();
+            takeFirstCards(3);
+            while (status.isStatus()) {
+                int cardToPlay = view.updateState(hands.get(currentPlayer), players.get(currentPlayer));
+                doAction(cardToPlay);
             }
-            rule();
-        } while (status.isStatus());
+            view.close(players);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private boolean doAction() {
-        int numCardToPlay = 0;
+    private void doAction(int numCardToPlay) {
         playCard(numCardToPlay);
         takeCard();
+        rule();
         opponentPlayer();
+        if (hands.get(currentPlayer).getSize() == 0) {
+            status.changeStatus();
+        }
+    }
 
-        return hands.get(currentPlayer).getSize() != 0;
+    private void takeCard() {
+        if (table.tableDeckSize() > 0) {
+            Card toTake = table.takeCardFromDeck();
+            hands.get(currentPlayer).takeCard(toTake);
+        }
     }
 
     private void takeFirstCards(Integer num) {
-        if (hands.get(currentPlayer).getSize() == 0) {
-            for (int i = 0; i < num; i++) {
-                takeCard();
-            }
+        for (int i = 0; i < num; i++) {
+            takeCard();
         }
+        opponentPlayer();
+        for (int i = 0; i < num; i++) {
+            takeCard();
+        }
+        opponentPlayer();
     }
 
     private void playCard(Integer pos) {
@@ -106,15 +103,19 @@ public class GameController {
 
     private void rule() {
         Card player1ThrowedCard = table.getPlayedCards()[0];
-        Card player2ThrowedCard = table.getPlayedCards()[1];
         int scoreCard1 = player1ThrowedCard.getScore();
-        int scoreCard2 = player2ThrowedCard.getScore();
-        if (player1ThrowedCard.getScore() > player2ThrowedCard.getScore()) {
-            players.get(0).setScore(scoreCard1 + scoreCard2);
-            table.insertIntoPlayerDeck(0);
-        } else {
-            players.get(1).setScore(scoreCard1 + scoreCard2);
-            table.insertIntoPlayerDeck(1);
+        if (table.getPlayedCards()[1] != null) {
+            Card player2ThrowedCard = table.getPlayedCards()[1];
+            int scoreCard2 = player2ThrowedCard.getScore();
+            if ((player1ThrowedCard.getScore() > player2ThrowedCard.getScore())
+                    || (player1ThrowedCard.getScore() == player2ThrowedCard.getScore())) {
+                players.get(0).setScore(scoreCard1 + scoreCard2);
+                table.insertIntoPlayerDeck(0);
+            } else {
+                players.get(1).setScore(scoreCard1 + scoreCard2);
+                table.insertIntoPlayerDeck(1);
+            }
+            table.resetPlayedCards();
         }
     }
 
