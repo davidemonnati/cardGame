@@ -2,15 +2,14 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameControllerTest {
     private final DefaultTableDeck tableDeck;
@@ -31,6 +30,14 @@ public class GameControllerTest {
         assertEquals(40, tableDeck.getSize());
     }
 
+    @Test
+    void IllegalCardPositionTest() {
+        Exception illegalCardPositionTest = new IllegalCardPositionException();
+        String expectedMessage = "ERRORE: La carta che hai selezionato non è presente nella mano\n" +
+                "Premi invio per continuare";
+        assertTrue(illegalCardPositionTest.getMessage().contains(expectedMessage));
+    }
+
     private List<Player> getPlayers() {
         List<Player> players = new ArrayList<>();
         Player player1 = new InteractivePlayer(0, "Davide");
@@ -42,17 +49,17 @@ public class GameControllerTest {
 
     private void initTableDeck() {
         for (int i = 0; i < 4; i++) {
-            tableDeck.insert(new Asso(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Tre(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Fante(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Cavallo(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Re(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Asso(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Tre(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Fante(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Cavallo(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Re(NapolitanSeed.values()[i]));
 
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.DUE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.QUATTRO));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.CINQUE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SEI));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SETTE));
         }
         tableDeck.randomizeDeck();
     }

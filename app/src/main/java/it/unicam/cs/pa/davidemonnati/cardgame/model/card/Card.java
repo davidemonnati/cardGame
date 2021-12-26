@@ -1,22 +1,22 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model.card;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaRank;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.BriscolaSeed;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.NapolitanRank;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.NapolitanSeed;
 
 import java.util.Objects;
 
 public abstract class Card {
-    private final BriscolaSeed seed;
-    private final BriscolaRank rank;
+    private final NapolitanSeed seed;
+    private final NapolitanRank rank;
     private final int score;
 
-    public Card(BriscolaSeed seed, BriscolaRank rank, int score) {
+    public Card(NapolitanSeed seed, NapolitanRank rank, int score) {
         this.seed = seed;
         this.rank = rank;
         this.score = score;
     }
 
-    public BriscolaSeed getSeed() {
+    public NapolitanSeed getSeed() {
         return seed;
     }
 
@@ -24,7 +24,7 @@ public abstract class Card {
         return score;
     }
 
-    public BriscolaRank getRank() {
+    public NapolitanRank getRank() {
         return rank;
     }
 

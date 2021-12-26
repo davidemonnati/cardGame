@@ -2,7 +2,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
@@ -24,8 +24,8 @@ public class TableTest {
     @Test
     void playCardTest() {
         Table table = new DefaultTable(DefaultTableDeck.empty());
-        Card card1 = new Asso(BriscolaSeed.BASTONI);
-        Card card2 = new Fante(BriscolaSeed.DENARI);
+        Card card1 = new Asso(NapolitanSeed.BASTONI);
+        Card card2 = new Fante(NapolitanSeed.DENARI);
         table.playCard(0, card1);
         table.playCard(1, card2);
         assertEquals(card1, table.getPlayedCards()[0]);
@@ -53,17 +53,17 @@ public class TableTest {
     private TableDeck getCompleteDeck() {
         TableDeck tableDeck = DefaultTableDeck.empty();
         for (int i = 0; i < 4; i++) {
-            tableDeck.insert(new Asso(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Tre(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Fante(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Cavallo(BriscolaSeed.values()[i]));
-            tableDeck.insert(new Re(BriscolaSeed.values()[i]));
+            tableDeck.insert(new Asso(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Tre(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Fante(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Cavallo(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Re(NapolitanSeed.values()[i]));
 
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.DUE));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.QUATTRO));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.CINQUE));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SEI));
-            tableDeck.insert(new Liscio(BriscolaSeed.values()[i], BriscolaRank.SETTE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.DUE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.QUATTRO));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.CINQUE));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SEI));
+            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SETTE));
         }
         return tableDeck;
     }
