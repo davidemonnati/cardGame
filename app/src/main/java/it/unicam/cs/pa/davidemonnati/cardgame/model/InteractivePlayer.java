@@ -1,11 +1,11 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
-public class DefaultPlayer implements Player {
+public class InteractivePlayer implements Player {
     private final int id;
     private final String username;
     private int score;
 
-    public DefaultPlayer(int id, String name) {
+    public InteractivePlayer(int id, String name) {
         this.id = id;
         this.username = name;
     }

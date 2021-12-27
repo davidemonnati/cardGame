@@ -1,9 +1,9 @@
-package it.unicam.cs.pa.davidemonnati.cardgame.model.card.briscola;
+package it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 
 public class Liscio extends Card {
-    public Liscio(BriscolaSeed seed, BriscolaRank rank) {
+    public Liscio(NeapolitanSeed seed, NeapolitanRank rank) {
         super(seed, rank, 0);
     }
 }

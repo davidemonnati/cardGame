@@ -18,6 +18,11 @@ public class DefaultHand implements Hand {
     }
 
     @Override
+    public List<Card> getCards() {
+        return cards;
+    }
+
+    @Override
     public Card playCard(int pos) {
         Card toReturn = cards.get(pos);
         cards.remove(pos);
