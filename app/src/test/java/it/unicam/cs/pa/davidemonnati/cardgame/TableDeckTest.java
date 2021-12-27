@@ -3,7 +3,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +18,7 @@ public class TableDeckTest {
 
     @Test
     void insertCardTest() {
-        Card card = new Liscio(NapolitanSeed.BASTONI, NapolitanRank.DUE);
+        Card card = new Liscio(NeapolitanSeed.BASTONI, NeapolitanRank.DUE);
         TableDeck deck = DefaultTableDeck.empty();
         deck.insert(card);
         assertEquals(1, deck.getSize());
@@ -38,17 +38,17 @@ public class TableDeckTest {
     private TableDeck getCompleteDeck() {
         TableDeck deck = DefaultTableDeck.empty();
         for (int i = 0; i < 4; i++) {
-            deck.insert(new Asso(NapolitanSeed.values()[i]));
-            deck.insert(new Tre(NapolitanSeed.values()[i]));
-            deck.insert(new Fante(NapolitanSeed.values()[i]));
-            deck.insert(new Cavallo(NapolitanSeed.values()[i]));
-            deck.insert(new Re(NapolitanSeed.values()[i]));
+            deck.insert(new Asso(NeapolitanSeed.values()[i]));
+            deck.insert(new Tre(NeapolitanSeed.values()[i]));
+            deck.insert(new Fante(NeapolitanSeed.values()[i]));
+            deck.insert(new Cavallo(NeapolitanSeed.values()[i]));
+            deck.insert(new Re(NeapolitanSeed.values()[i]));
 
-            deck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.DUE));
-            deck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.QUATTRO));
-            deck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.CINQUE));
-            deck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SEI));
-            deck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SETTE));
+            deck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.DUE));
+            deck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.QUATTRO));
+            deck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.CINQUE));
+            deck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SEI));
+            deck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SETTE));
         }
         return deck;
     }

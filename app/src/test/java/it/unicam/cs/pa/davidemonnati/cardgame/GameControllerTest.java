@@ -1,8 +1,9 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.napolitan.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +34,7 @@ public class GameControllerTest {
     @Test
     void IllegalCardPositionTest() {
         Exception illegalCardPositionTest = new IllegalCardPositionException();
-        String expectedMessage = "ERRORE: La carta che hai selezionato non è presente nella mano\n" +
-                "Premi invio per continuare";
+        String expectedMessage = "ERRORE: La carta che hai selezionato non è presente nella mano";
         assertTrue(illegalCardPositionTest.getMessage().contains(expectedMessage));
     }
 
@@ -49,17 +49,17 @@ public class GameControllerTest {
 
     private void initTableDeck() {
         for (int i = 0; i < 4; i++) {
-            tableDeck.insert(new Asso(NapolitanSeed.values()[i]));
-            tableDeck.insert(new Tre(NapolitanSeed.values()[i]));
-            tableDeck.insert(new Fante(NapolitanSeed.values()[i]));
-            tableDeck.insert(new Cavallo(NapolitanSeed.values()[i]));
-            tableDeck.insert(new Re(NapolitanSeed.values()[i]));
+            tableDeck.insert(new Asso(NeapolitanSeed.values()[i]));
+            tableDeck.insert(new Tre(NeapolitanSeed.values()[i]));
+            tableDeck.insert(new Fante(NeapolitanSeed.values()[i]));
+            tableDeck.insert(new Cavallo(NeapolitanSeed.values()[i]));
+            tableDeck.insert(new Re(NeapolitanSeed.values()[i]));
 
-            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.DUE));
-            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.QUATTRO));
-            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.CINQUE));
-            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SEI));
-            tableDeck.insert(new Liscio(NapolitanSeed.values()[i], NapolitanRank.SETTE));
+            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.DUE));
+            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.QUATTRO));
+            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.CINQUE));
+            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SEI));
+            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SETTE));
         }
         tableDeck.randomizeDeck();
     }

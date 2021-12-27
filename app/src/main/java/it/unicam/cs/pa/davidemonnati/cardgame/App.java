@@ -3,6 +3,7 @@
  */
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.exception.BadUsernameFormatException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
 
@@ -20,7 +21,7 @@ public class App {
         this.game = game;
     }
 
-    public void start() {
+    public void start() throws Exception {
         game.play();
     }
 
@@ -28,22 +29,24 @@ public class App {
         try {
             createGame().start();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
-    private static App createGame() throws IOException {
+    private static App createGame() throws IOException, BadUsernameFormatException {
         List<Player> players = createPlayers();
         return new App(new GameController(players));
     }
 
-    private static List<Player> createPlayers() throws IOException {
+    private static List<Player> createPlayers() throws IOException, BadUsernameFormatException {
         List<Player> players = new ArrayList<>();
         System.out.println();
         for (int i = 0; i < 2; i++) {
             System.out.println("Creazione player " + (i + 1) + ": ");
             System.out.println("Inserisci username: ");
             String username = br.readLine();
+            if (username.length() > 15)
+                throw new BadUsernameFormatException();
             players.add(new InteractivePlayer(i, username));
             System.out.println("\n");
         }

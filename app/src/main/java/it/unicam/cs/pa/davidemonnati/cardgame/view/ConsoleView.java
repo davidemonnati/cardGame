@@ -28,7 +28,7 @@ public class ConsoleView implements View {
         System.out.println();
     }
 
-    public int updateState(Hand hand, Player player) throws IOException {
+    public int updateState(Hand hand, Player player) throws IOException, NumberFormatException {
         printPlayerInfo(player);
         return selectCardToPlay(hand);
     }
@@ -41,7 +41,7 @@ public class ConsoleView implements View {
         System.out.println("Punteggio " + players.get(1).getUsername() + ": " + players.get(1).getScore());
     }
 
-    private Integer selectCardToPlay(Hand hand) throws IOException {
+    private Integer selectCardToPlay(Hand hand) throws IOException, NumberFormatException {
         List<Card> cards = hand.getCards();
         for (int i = 0; i < cards.size(); i++) {
             System.out.println((i + 1) + " - " + cards.get(i).getRank() + " " + cards.get(i).getSeed());

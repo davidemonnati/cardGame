@@ -7,5 +7,5 @@ public interface Game {
     /**
      * Avvia la partita
      */
-    void play();
+    void play() throws Exception;
 }
