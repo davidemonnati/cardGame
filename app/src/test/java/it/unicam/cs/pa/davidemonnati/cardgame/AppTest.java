@@ -5,6 +5,8 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test
     void newAppCreationTest() {
-        App app = new App(new GameController(getPlayers()));
+        Table table = new NeapolitanTable();
+        App app = new App(new GameController(getPlayers(), table));
         assertNotNull(app);
     }
 

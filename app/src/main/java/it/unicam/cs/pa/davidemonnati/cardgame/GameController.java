@@ -1,11 +1,12 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.Hand;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.Status;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
@@ -16,37 +17,18 @@ import java.util.List;
 public class GameController implements Game {
     private final Status status;
     private final List<Player> players;
-    private Table table;
+    private final Table table;
     private List<Hand> hands;
     private int currentPlayer;
     private final View view;
 
-    public GameController(List<Player> players) {
+    public GameController(List<Player> players, Table table) {
         this.status = new Status();
         this.players = players;
-        initTableDeck();
+        this.table = table;
         initHands();
         this.currentPlayer = 0;
         this.view = new ConsoleView();
-    }
-
-    private void initTableDeck() {
-        TableDeck tableDeck = DefaultTableDeck.empty();
-        for (int i = 0; i < 4; i++) {
-            tableDeck.insert(new Asso(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Tre(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Fante(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Cavallo(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Re(NeapolitanSeed.values()[i]));
-
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.DUE));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.QUATTRO));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.CINQUE));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SEI));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SETTE));
-        }
-        tableDeck.randomizeDeck();
-        this.table = new DefaultTable(tableDeck);
     }
 
     private void initHands() {

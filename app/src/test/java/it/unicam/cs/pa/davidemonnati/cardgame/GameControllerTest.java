@@ -5,6 +5,8 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.*;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -21,7 +23,8 @@ public class GameControllerTest {
 
     @Test
     void gameControllerCreationTest() {
-        Game gameController = new GameController(getPlayers());
+        Table table = new NeapolitanTable();
+        Game gameController = new GameController(getPlayers(), table);
         assertNotNull(gameController);
     }
 

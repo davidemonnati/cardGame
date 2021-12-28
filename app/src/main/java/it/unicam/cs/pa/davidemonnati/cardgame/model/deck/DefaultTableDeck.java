@@ -27,6 +27,11 @@ public class DefaultTableDeck implements TableDeck {
     }
 
     @Override
+    public Card getCard(int pos) {
+        return cards.get(pos);
+    }
+
+    @Override
     public void randomizeDeck() {
         Collections.shuffle(cards);
     }
