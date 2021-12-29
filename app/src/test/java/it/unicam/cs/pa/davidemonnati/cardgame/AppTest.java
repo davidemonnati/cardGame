@@ -12,14 +12,24 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AppTest {
     @Test
     void newAppCreationTest() {
         Table table = new NeapolitanTable();
-        App app = new App(new GameController(getPlayers(), table));
+        App app = new App(new GameController(createTurn(), table, new DefaultRule().rule()));
         assertNotNull(app);
+    }
+
+    @Test
+    void createTurnTest() {
+        GameTurn gameTurn = new GameTurn(getPlayers());
+        assertNotNull(gameTurn);
+    }
+
+    private GameTurn createTurn() {
+        return new GameTurn(getPlayers());
     }
 
     private List<Player> getPlayers() {

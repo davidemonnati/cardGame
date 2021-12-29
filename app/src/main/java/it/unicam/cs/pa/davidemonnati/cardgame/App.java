@@ -36,9 +36,9 @@ public class App {
     }
 
     private static App createGame() throws IOException, BadUsernameFormatException {
-        List<Player> players = createPlayers();
+        GameTurn turn = new GameTurn(createPlayers());
         Table table = new NeapolitanTable();
-        return new App(new GameController(players, table));
+        return new App(new GameController(turn, table, new DefaultRule().rule()));
     }
 
     private static List<Player> createPlayers() throws IOException, BadUsernameFormatException {
