@@ -3,11 +3,11 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model;
 public interface Player {
     String getUsername();
 
-    int getId();
+    Integer getId();
 
     void setScore(int score);
 
-    int getScore();
+    Integer getScore();
 
     void resetScore();
 }

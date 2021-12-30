@@ -4,25 +4,24 @@ import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionExcep
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Status;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
-import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
 import java.io.IOException;
 import java.util.function.BiFunction;
 
-public class GameController implements Game {
+public class GameController <T extends Table> implements Game {
     private final Status status;
     private GameTurn turn;
-    private final Table table;
-    private final BiFunction<Table, GameTurn, GameTurn> rule;
+    private final T table;
+    private final BiFunction<? super T, GameTurn, GameTurn> rule;
     private final View view;
 
-    public GameController(GameTurn turn, Table table, BiFunction<Table, GameTurn, GameTurn> rule) {
+    public GameController(GameTurn turn, T table, BiFunction<? super T, GameTurn, GameTurn> rule, View view) {
         this.status = new Status();
         this.turn = turn;
         this.table = table;
         this.rule = rule;
-        this.view = new ConsoleView();
+        this.view = view;
     }
 
     @Override
@@ -43,7 +42,8 @@ public class GameController implements Game {
                 System.in.read();
             }
         }
-        view.close(turn.getPlayers());
+        Integer winnerID = turn.winner();
+        view.close(turn.getPlayers(), winnerID);
     }
 
     private void doAction(int numCardToPlay) throws IOException, IllegalCardPositionException {

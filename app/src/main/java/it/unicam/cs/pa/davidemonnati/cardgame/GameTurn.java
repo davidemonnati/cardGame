@@ -126,4 +126,14 @@ public class GameTurn {
     public void setScore(int playerID, int score) {
         players.get(playerID).setScore(score);
     }
+
+    /**
+     * Metodo che serve a definire quale giocatore ha vinto la partita e ritorna il suo ID.
+     *
+     * @return l'id del giocatore che ha vinto la partita.
+     */
+    public Integer winner() {
+        Winner winner = new DefaultWinner();
+        return winner.check().apply(players);
+    }
 }

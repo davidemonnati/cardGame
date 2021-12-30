@@ -11,10 +11,11 @@ import java.util.function.BiFunction;
 @FunctionalInterface
 public interface Rule {
     /**
-     * Ogni volta che si applica la regola, verrà restituito il nuovo stato dei giocatori, con
-     * i punteggi aggiornati.
+     * Ogni volta che si applica la regola verrà restituito il nuovo stato dell'istanza di {@link GameTurn}
      *
-     * @return nuovo stato dei giocatori
+     * @return nuovo stato dell'istanza {@link GameTurn}
+     * @see Table
+     * @see GameTurn
      * @see Player
      */
     BiFunction<? extends Table, GameTurn, GameTurn> rule();

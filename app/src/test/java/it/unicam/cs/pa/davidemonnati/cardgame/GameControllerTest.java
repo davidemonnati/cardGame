@@ -4,7 +4,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionExcep
 import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
+import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class GameControllerTest {
     @Test
     void gameControllerCreationTest() {
-        Table table = new NeapolitanTable();
-        Game gameController = new GameController(createTurn(), table, new DefaultRule().rule());
+        NeapolitanTable table = new NeapolitanTable();
+        Game gameController = new GameController<>(createTurn(), table, new DefaultRule().rule(),
+                new ConsoleView());
         assertNotNull(gameController);
     }
 

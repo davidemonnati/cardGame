@@ -34,11 +34,14 @@ public class ConsoleView implements View {
     }
 
     @Override
-    public void close(List<Player> players) {
+    public void close(List<Player> players, Integer winnerID) {
         System.out.println();
         System.out.println("La partita è terminata!");
-        System.out.println("Punteggio " + players.get(0).getUsername() + ": " + players.get(0).getScore());
-        System.out.println("Punteggio " + players.get(1).getUsername() + ": " + players.get(1).getScore());
+        System.out.println("Il vincitore è: " + players.get(winnerID).getUsername());
+        System.out.println();
+        System.out.println("=============PUNTEGGI GIOCATORI=============");
+        players.forEach(player -> System.out.println("Punteggio " + player.getUsername() + ": " + player.getScore()));
+        System.out.println("============================================");
     }
 
     private Integer selectCardToPlay(Hand hand) throws IOException, NumberFormatException {
@@ -46,12 +49,13 @@ public class ConsoleView implements View {
         for (int i = 0; i < cards.size(); i++) {
             System.out.println((i + 1) + " - " + cards.get(i).getRank() + " " + cards.get(i).getSeed());
         }
-        System.out.println("Seleziona la carta che si vuole giocare: ");
-        return (Integer.parseInt(br.readLine()) - 1);
+        System.out.print("Seleziona la carta che si vuole giocare: ");
+        Integer selected = (Integer.parseInt(br.readLine()) - 1);
+        clearScreen();
+        return selected;
     }
 
     private void printPlayerInfo(Player player) {
-        clearScreen();
         System.out.println("E' il turno di: " + player.getUsername());
         System.out.println("Punteggio: " + player.getScore());
         System.out.println();

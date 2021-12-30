@@ -33,5 +33,5 @@ public interface View {
      *
      * @param players per visualizzare lo stato finale di tutti i giocatori
      */
-    void close(List<Player> players);
+    void close(List<Player> players, Integer winnerID);
 }

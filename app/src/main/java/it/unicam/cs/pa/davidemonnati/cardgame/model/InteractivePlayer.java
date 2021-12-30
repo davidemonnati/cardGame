@@ -5,7 +5,7 @@ public class InteractivePlayer implements Player {
     private final String username;
     private int score;
 
-    public InteractivePlayer(int id, String name) {
+    public InteractivePlayer(Integer id, String name) {
         this.id = id;
         this.username = name;
     }
@@ -16,7 +16,7 @@ public class InteractivePlayer implements Player {
     }
 
     @Override
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -26,7 +26,7 @@ public class InteractivePlayer implements Player {
     }
 
     @Override
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
