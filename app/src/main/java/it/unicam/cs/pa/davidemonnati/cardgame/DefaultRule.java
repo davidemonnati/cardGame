@@ -2,17 +2,18 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 
-import java.util.function.BiFunction;
+import java.util.function.BiConsumer;
 
 /**
  * Regola base di gioco, che consiste nel:
  * Il giocatore ha delle carte in mano, a turno si gioca una carta e chi ha buttato la carta con il valore più alto
  * si aggiudica la presa.
- * Questa è solamente una regola di test.
+ * Questa è solamente una semplice regola per fare test e non rappresenta in alcun modo nessun tipo di gioco
+ * di carte esistente.
  */
 public class DefaultRule implements Rule {
     @Override
-    public BiFunction<NeapolitanTable, GameTurn, GameTurn> rule() {
+    public BiConsumer<NeapolitanTable, GameTurn> rule() {
         return (table, turn) -> {
             int scoreCard1 = table.getPlayedCards()[0].getScore();
             if (table.getPlayedCards()[1] != null) {
@@ -28,7 +29,6 @@ public class DefaultRule implements Rule {
                 table.resetPlayedCards();
             }
             turn.opponentPlayer();
-            return turn;
         };
     }
 }

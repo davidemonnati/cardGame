@@ -7,16 +7,16 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
 import java.io.IOException;
-import java.util.function.BiFunction;
+import java.util.function.BiConsumer;
 
 public class GameController <T extends Table> implements Game {
     private final Status status;
-    private GameTurn turn;
+    private final GameTurn turn;
     private final T table;
-    private final BiFunction<? super T, GameTurn, GameTurn> rule;
+    private final BiConsumer<? super T, GameTurn> rule;
     private final View view;
 
-    public GameController(GameTurn turn, T table, BiFunction<? super T, GameTurn, GameTurn> rule, View view) {
+    public GameController(GameTurn turn, T table, BiConsumer<? super T, GameTurn> rule, View view) {
         this.status = new Status();
         this.turn = turn;
         this.table = table;
@@ -49,7 +49,7 @@ public class GameController <T extends Table> implements Game {
     private void doAction(int numCardToPlay) throws IOException, IllegalCardPositionException {
         playCard(numCardToPlay);
         takeCard();
-        this.turn = rule.apply(table, turn);
+        rule.accept(table, turn);
         if (turn.getHandSize() == 0) {
             status.changeStatus();
         }

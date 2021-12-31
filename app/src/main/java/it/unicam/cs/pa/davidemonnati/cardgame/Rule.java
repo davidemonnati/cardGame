@@ -3,7 +3,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 
-import java.util.function.BiFunction;
+import java.util.function.BiConsumer;
 
 /**
  * Interfaccia che serve a definire la regola di un gioco di carte.
@@ -13,10 +13,11 @@ public interface Rule {
     /**
      * Ogni volta che si applica la regola verrà restituito il nuovo stato dell'istanza di {@link GameTurn}
      *
-     * @return nuovo stato dell'istanza {@link GameTurn}
+     * @return BiConsumer che accetta in input un {@link Table} e un {@link GameTurn} per eseguire la regola di gioco
+     * sulle carte che sono state giocate.
      * @see Table
      * @see GameTurn
      * @see Player
      */
-    BiFunction<? extends Table, GameTurn, GameTurn> rule();
+    BiConsumer<? extends Table, GameTurn> rule();
 }
