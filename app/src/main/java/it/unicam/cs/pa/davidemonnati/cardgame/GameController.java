@@ -1,58 +1,27 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.*;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.Status;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.*;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DefaultTableDeck;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck;
-import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.BiConsumer;
 
-public class GameController implements Game {
+public class GameController <T extends Table> implements Game {
     private final Status status;
-    private final List<Player> players;
-    private Table table;
-    private List<Hand> hands;
-    private int currentPlayer;
+    private final GameTurn turn;
+    private final T table;
+    private final BiConsumer<? super T, GameTurn> rule;
     private final View view;
 
-    public GameController(List<Player> players) {
+    public GameController(GameTurn turn, T table, BiConsumer<? super T, GameTurn> rule, View view) {
         this.status = new Status();
-        this.players = players;
-        initTableDeck();
-        initHands();
-        this.currentPlayer = 0;
-        this.view = new ConsoleView();
-    }
-
-    private void initTableDeck() {
-        TableDeck tableDeck = DefaultTableDeck.empty();
-        for (int i = 0; i < 4; i++) {
-            tableDeck.insert(new Asso(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Tre(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Fante(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Cavallo(NeapolitanSeed.values()[i]));
-            tableDeck.insert(new Re(NeapolitanSeed.values()[i]));
-
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.DUE));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.QUATTRO));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.CINQUE));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SEI));
-            tableDeck.insert(new Liscio(NeapolitanSeed.values()[i], NeapolitanRank.SETTE));
-        }
-        tableDeck.randomizeDeck();
-        this.table = new DefaultTable(tableDeck);
-    }
-
-    private void initHands() {
-        this.hands = new ArrayList<>();
-        hands.add(new DefaultHand());
-        hands.add(new DefaultHand());
+        this.turn = turn;
+        this.table = table;
+        this.rule = rule;
+        this.view = view;
     }
 
     @Override
@@ -61,7 +30,7 @@ public class GameController implements Game {
         takeFirstCards(3);
         while (status.isStatus()) {
             try {
-                int cardToPlay = view.updateState(hands.get(currentPlayer), players.get(currentPlayer));
+                int cardToPlay = view.updateState(turn.getHand(), turn.getPlayer());
                 doAction(cardToPlay);
             } catch (IOException | IllegalCardPositionException e) {
                 System.out.println(e.getMessage());
@@ -73,15 +42,15 @@ public class GameController implements Game {
                 System.in.read();
             }
         }
-        view.close(players);
+        Integer winnerID = turn.winner();
+        view.close(turn.getPlayers(), winnerID);
     }
 
     private void doAction(int numCardToPlay) throws IOException, IllegalCardPositionException {
         playCard(numCardToPlay);
         takeCard();
-        rule();
-        opponentPlayer();
-        if (hands.get(currentPlayer).getSize() == 0) {
+        rule.accept(table, turn);
+        if (turn.getHandSize() == 0) {
             status.changeStatus();
         }
     }
@@ -89,47 +58,22 @@ public class GameController implements Game {
     private void takeCard() {
         if (table.tableDeckSize() > 0) {
             Card toTake = table.takeCardFromDeck();
-            hands.get(currentPlayer).takeCard(toTake);
+            turn.takeCard(toTake);
         }
     }
 
     private void takeFirstCards(Integer num) {
-        for (int i = 0; i < num; i++) {
-            takeCard();
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < num; j++) {
+                Card toTake = table.takeCardFromDeck();
+                turn.takeCard(toTake);
+            }
+            turn.opponentPlayer();
         }
-        opponentPlayer();
-        for (int i = 0; i < num; i++) {
-            takeCard();
-        }
-        opponentPlayer();
     }
 
     private void playCard(Integer pos) throws IllegalCardPositionException {
-        if ((pos > (hands.get(currentPlayer).getSize() - 1)) || (pos < 0))
-            throw new IllegalCardPositionException();
-        Card toPlay = hands.get(currentPlayer).playCard(pos);
-        table.playCard(currentPlayer, toPlay);
-    }
-
-    private void rule() {
-        Card player1ThrowedCard = table.getPlayedCards()[0];
-        int scoreCard1 = player1ThrowedCard.getScore();
-        if (table.getPlayedCards()[1] != null) {
-            Card player2ThrowedCard = table.getPlayedCards()[1];
-            int scoreCard2 = player2ThrowedCard.getScore();
-            if ((player1ThrowedCard.getScore() > player2ThrowedCard.getScore())
-                    || (player1ThrowedCard.getScore() == player2ThrowedCard.getScore())) {
-                players.get(0).setScore(scoreCard1 + scoreCard2);
-                table.insertIntoPlayerDeck(0);
-            } else {
-                players.get(1).setScore(scoreCard1 + scoreCard2);
-                table.insertIntoPlayerDeck(1);
-            }
-            table.resetPlayedCards();
-        }
-    }
-
-    private void opponentPlayer() {
-        this.currentPlayer = (currentPlayer + 1) % 2;
+        Card toPlay = turn.playCard(pos);
+        table.playCard(turn.getCurrentPlayer(), toPlay);
     }
 }

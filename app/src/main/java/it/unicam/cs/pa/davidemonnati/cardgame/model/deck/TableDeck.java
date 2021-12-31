@@ -23,6 +23,14 @@ public interface TableDeck extends DeckOperations {
     Card removeCard();
 
     /**
+     * Ritorna una Carta di posizione <i>pos</i> senza eliminarla dal mazzo
+     * @param pos posizione della carta che si vuole ottenere
+     * @return ritorna la carta
+     * @see Card
+     */
+    Card getCard(int pos);
+
+    /**
      * Mescola le carte che ci sono all'interno del mazzo.
      */
     void randomizeDeck();

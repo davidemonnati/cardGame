@@ -35,6 +35,21 @@ public class TableDeckTest {
         assertEquals(-1, deck.search(removedCard));
     }
 
+    @Test
+    void testGetCard() {
+        TableDeck deck = getCompleteDeck();
+        assertEquals(40, deck.getSize());
+        Card card = deck.getCard((deck.getSize()) - 1);
+        assertEquals(40, deck.getSize());
+        assertEquals(1, deck.search(card)); // LIFO
+    }
+
+    @Test
+    void createDeckTest() {
+        TableDeck tableDeck = getCompleteDeck();
+        assertEquals(40, tableDeck.getSize());
+    }
+
     private TableDeck getCompleteDeck() {
         TableDeck deck = DefaultTableDeck.empty();
         for (int i = 0; i < 4; i++) {

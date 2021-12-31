@@ -15,7 +15,7 @@ public interface DeckOperations {
 
     /**
      * Permette di ricercare una carta all'interno del mazzo.
-     * Il metodo deve ritornare la posizione in cui si trova la carta che stiamo cercando, -1 se la carta non esiste.
+     * Il metodo ritorna la posizione in cui si trova la carta che stiamo cercando e -1 se la carta non esiste.
      *
      * @param card indica la carta che dobbiamo cercare all'interno del mazzo
      * @return il valore che rappresenta la posizione della carta
