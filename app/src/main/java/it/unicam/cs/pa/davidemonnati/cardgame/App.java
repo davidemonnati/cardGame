@@ -4,8 +4,9 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.BadUsernameFormatException;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownPlayerTypeException;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.PlayerType;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class App {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -35,24 +37,29 @@ public class App {
         }
     }
 
-    private static App createGame() throws IOException, BadUsernameFormatException {
+    private static App createGame() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
         GameTurn turn = new GameTurn(createPlayers());
         NeapolitanTable table = new NeapolitanTable();
         return new App(new GameController<>(turn, table, new DefaultRule().rule(), new ConsoleView()));
     }
 
-    private static List<Player> createPlayers() throws IOException, BadUsernameFormatException {
+    private static List<Player> createPlayers() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
         List<Player> players = new ArrayList<>();
         System.out.println();
         for (int i = 0; i < 2; i++) {
             System.out.println("Creazione player " + (i + 1) + ": ");
-            System.out.println("Inserisci username: ");
+            System.out.print("Inserisci username: ");
             String username = br.readLine();
             if (username.length() > 15)
                 throw new BadUsernameFormatException();
-            players.add(new InteractivePlayer(i, username));
+            players.add(PlayerType.valueOf(selectPlayerType()).getPlayer(i, username));
             System.out.println("\n");
         }
         return players;
+    }
+
+    private static String selectPlayerType() throws IOException {
+        System.out.print("Seleziona il tipo di giocatore (Interactive/Random): ");
+        return br.readLine().toUpperCase(Locale.ROOT);
     }
 }

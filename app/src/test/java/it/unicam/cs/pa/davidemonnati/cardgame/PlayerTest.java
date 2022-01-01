@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,7 +23,5 @@ public class PlayerTest {
         assertEquals(10, davide.getScore());
         davide.setScore(5);
         assertEquals(15, davide.getScore());
-        davide.resetScore();
-        assertEquals(0, davide.getScore());
     }
 }

@@ -30,8 +30,7 @@ public class GameController <T extends Table> implements Game {
         takeFirstCards(3);
         while (status.isStatus()) {
             try {
-                int cardToPlay = view.updateState(turn.getHand(), turn.getPlayer());
-                doAction(cardToPlay);
+                doAction();
             } catch (IOException | IllegalCardPositionException e) {
                 System.out.println(e.getMessage());
                 System.out.println("Premi un tasto per continuare");
@@ -46,8 +45,8 @@ public class GameController <T extends Table> implements Game {
         view.close(turn.getPlayers(), winnerID);
     }
 
-    private void doAction(int numCardToPlay) throws IOException, IllegalCardPositionException {
-        playCard(numCardToPlay);
+    private void doAction() throws IOException, IllegalCardPositionException {
+        playCard();
         takeCard();
         rule.accept(table, turn);
         if (turn.getHandSize() == 0) {
@@ -72,7 +71,8 @@ public class GameController <T extends Table> implements Game {
         }
     }
 
-    private void playCard(Integer pos) throws IllegalCardPositionException {
+    private void playCard() throws IOException, IllegalCardPositionException {
+        int pos = view.updateState(turn.getHand(), turn.getPlayer());
         Card toPlay = turn.playCard(pos);
         table.playCard(turn.getCurrentPlayer(), toPlay);
     }

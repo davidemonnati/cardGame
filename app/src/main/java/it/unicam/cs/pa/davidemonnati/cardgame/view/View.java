@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.view;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Hand;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.io.IOException;
 import java.util.List;

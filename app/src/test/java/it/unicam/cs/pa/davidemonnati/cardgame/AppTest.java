@@ -3,8 +3,8 @@
  */
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.InteractivePlayer;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 import org.junit.jupiter.api.Test;

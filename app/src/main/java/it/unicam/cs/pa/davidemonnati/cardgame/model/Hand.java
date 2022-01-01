@@ -2,6 +2,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DeckOperations;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.util.List;
 

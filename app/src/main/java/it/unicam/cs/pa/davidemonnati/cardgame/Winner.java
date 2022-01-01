@@ -1,6 +1,6 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.model.Player;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.util.List;
 import java.util.function.Function;
