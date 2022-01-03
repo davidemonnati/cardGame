@@ -18,10 +18,11 @@ public interface View {
     /**
      * Aggiorna lo stato della view chiedendo ogni volta al {@link Player} quale carta vuole giocare.
      *
-     * @param hand   la mano del giocatore per mostrare quali carte ha
-     * @param player per mostrare username e punteggio
+     * @param hand   mano del giocatore per stampare l'elenco delle carte
+     * @param player per stampare username e punteggio
      * @return valore intero che rappresenta la carta che si vuole giocare, nella mano
-     * @throws IOException           Eccezione che viene lanciata quando ci sono errori durante l'inserimento di dati da tastiera
+     * @throws IOException           Eccezione che viene lanciata quando ci sono errori durante l'inserimento di dati
+     *                               da tastiera
      * @throws NumberFormatException Eccezione che viene lanciata quando ci sono errori durante la conversione del dato
      *                               in input
      * @see Hand

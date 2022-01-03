@@ -9,6 +9,13 @@ import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 
+/**
+ * Classe generica che ha come responsabilità quella di gestire l'intera partita.
+ * Nello specifico andiamo a gestire le azioni base del <i>Player</i> ovvero quella di prendere delle carte e
+ * di giocarle, l'avvio e la terminazione della partita.
+ *
+ * @param <T> tipo generico che rappresenta una sottoclasse di {@link Table}
+ */
 public class GameController <T extends Table> implements Game {
     private final Status status;
     private final GameTurn turn;
@@ -24,10 +31,21 @@ public class GameController <T extends Table> implements Game {
         this.view = view;
     }
 
+    /**
+     * Gestisce l'esecuzione della partita mantenendo un ciclo <i>while</i> attivo finché lo stato della partita è
+     * uguale a <i>true</i>.
+     * All'interno del <i>while</i> richiamo il metodo <i>doAction()</i> che si occupa di far eseguire alcune azioni
+     * all'utente.
+     * Quando lo stato diventa <i>false</i> il ciclo viene interrotto e si stabilisce chi è il vincitore.
+     *
+     * @throws IOException Errori di I/O
+     * @see Status
+     * @see GameTurn
+     */
     @Override
     public void play() throws IOException {
         view.open();
-        takeFirstCards(3);
+        takeFirstCards();
         while (status.isStatus()) {
             try {
                 doAction();
@@ -45,6 +63,22 @@ public class GameController <T extends Table> implements Game {
         view.close(turn.getPlayers(), winnerID);
     }
 
+    /**
+     * Azioni che vengono eseguite dal giocatore durante il suo turno.
+     * Le azioni consistono nel:
+     * <ul>
+     *     <li>Giocare una carta dalla mano</li>
+     *     <li>Prendere la carta dal tavolo</li>
+     *     <li>Applicare la regola del gioco per stabilire chi si aggiudica la presa</li>
+     * </ul>
+     * <p>
+     * Infine quando un giocatore ha terminato tutte le carte dalla mano, il gioco termina cambiando lo stato della
+     * partita.
+     *
+     * @throws IOException                  errori di I/O
+     * @throws IllegalCardPositionException viene catturato quando l'utente inserisce una posizione non valida
+     * @see Rule
+     */
     private void doAction() throws IOException, IllegalCardPositionException {
         playCard();
         takeCard();
@@ -54,6 +88,9 @@ public class GameController <T extends Table> implements Game {
         }
     }
 
+    /**
+     * Permette al giocatore di prendere una carta dal mazzo.
+     */
     private void takeCard() {
         if (table.tableDeckSize() > 0) {
             Card toTake = table.takeCardFromDeck();
@@ -61,16 +98,29 @@ public class GameController <T extends Table> implements Game {
         }
     }
 
-    private void takeFirstCards(Integer num) {
+    /**
+     * Permette all'utente di prendere le prime carte dal mazzo, che solitamente sono tre, appena viene
+     * avviata la partita.
+     */
+    private void takeFirstCards() {
         for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < num; j++) {
+            for (int j = 0; j < 3; j++) {
                 Card toTake = table.takeCardFromDeck();
                 turn.takeCard(toTake);
             }
-            turn.opponentPlayer();
+            turn.setOpponentPlayer();
         }
     }
 
+    /**
+     * Consente al giocatore di giocare una carta dalla propria mano.
+     * Viene invocato il metodo <i>updateState()</i> dalla view che stampa lo stato attuale della partita, la mano del
+     * giocatore e richiede al Player di selezionare una carta da giocare.
+     *
+     * @see View
+     * @throws IOException Errore di I/O lanciato dalla view
+     * @throws IllegalCardPositionException viene lanciato quando l'utente inserisce una posizione non valida
+     */
     private void playCard() throws IOException, IllegalCardPositionException {
         int pos = view.updateState(turn.getHand(), turn.getPlayer());
         Card toPlay = turn.playCard(pos);

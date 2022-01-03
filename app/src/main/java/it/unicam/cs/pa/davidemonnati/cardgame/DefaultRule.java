@@ -28,7 +28,7 @@ public class DefaultRule implements Rule {
                 }
                 table.resetPlayedCards();
             }
-            turn.opponentPlayer();
+            turn.getOpponentPlayer();
         };
     }
 }

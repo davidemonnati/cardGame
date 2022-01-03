@@ -7,8 +7,8 @@ import it.unicam.cs.pa.davidemonnati.cardgame.exception.BadUsernameFormatExcepti
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownPlayerTypeException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.PlayerType;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
-import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
+import it.unicam.cs.pa.davidemonnati.cardgame.view.BriscolaView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,8 +39,8 @@ public class App {
 
     private static App createGame() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
         GameTurn turn = new GameTurn(createPlayers());
-        NeapolitanTable table = new NeapolitanTable();
-        return new App(new GameController<>(turn, table, new DefaultRule().rule(), new ConsoleView()));
+        BriscolaTable table = new BriscolaTable();
+        return new App(new GameController<>(turn, table, new BriscolaRule().rule(), new BriscolaView(table)));
     }
 
     private static List<Player> createPlayers() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {

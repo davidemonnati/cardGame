@@ -85,8 +85,22 @@ public class GameTurn {
     /**
      * Imposta la variabile <i>currentPlayer</i> con l'id del giocatore opposto.
      */
-    public void opponentPlayer() {
-        this.currentPlayer = (currentPlayer + 1) % 2;
+    public void setOpponentPlayer() {
+        this.currentPlayer = opponentPlayer();
+    }
+
+    /**
+     * @return ritorna il {@link Player} opposto senza modificare <i>currentPlayer</i>
+     */
+    public int getOpponentPlayer() {
+        return opponentPlayer();
+    }
+
+    /**
+     * @return id {@link Player} opposto
+     */
+    private int opponentPlayer() {
+        return (this.currentPlayer + 1) % 2;
     }
 
     /**
