@@ -4,11 +4,10 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.BadUsernameFormatException;
+import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownGameException;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownPlayerTypeException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.PlayerType;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
-import it.unicam.cs.pa.davidemonnati.cardgame.view.BriscolaView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,8 +38,8 @@ public class App {
 
     private static App createGame() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
         GameTurn turn = new GameTurn(createPlayers());
-        BriscolaTable table = new BriscolaTable();
-        return new App(new GameController<>(turn, table, new BriscolaRule().rule(), new BriscolaView(table)));
+        int selectedGame = selectGame();
+        return new App(GamesList.values()[selectedGame].getGame(turn));
     }
 
     private static List<Player> createPlayers() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
@@ -61,5 +60,17 @@ public class App {
     private static String selectPlayerType() throws IOException {
         System.out.print("Seleziona il tipo di giocatore (Interactive/Random): ");
         return br.readLine().toUpperCase(Locale.ROOT);
+    }
+
+    private static int selectGame() throws IOException {
+        System.out.println("Lista giochi:");
+        System.out.println("1 - Gioco default");
+        System.out.println("2 - Briscola");
+        System.out.println();
+        System.out.print("Seleziona il gioco a cui vuoi giocare: ");
+        int selected = Integer.parseInt(br.readLine());
+        if (selected > GamesList.values().length || selected < 1)
+            throw new UnknownGameException();
+        return (selected - 1);
     }
 }
