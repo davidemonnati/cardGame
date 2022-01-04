@@ -1,5 +1,7 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.Winner;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Hand;
@@ -15,7 +17,7 @@ import java.util.List;
  * appartiene il turno corrente.
  * Tutte le operazioni che vengono effettuate si riferiscono al player che sta giocando la partita.
  */
-public class GameTurn {
+public class Turn {
     /**
      * Lista giocatori.
      */
@@ -29,7 +31,7 @@ public class GameTurn {
      */
     private int currentPlayer;
 
-    public GameTurn(List<Player> players) {
+    public Turn(List<Player> players) {
         this.players = players;
         initHands();
         this.currentPlayer = 0;

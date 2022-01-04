@@ -1,5 +1,9 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.Game;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.GameController;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
@@ -29,8 +33,8 @@ public class GameControllerTest {
         assertTrue(illegalCardPositionTest.getMessage().contains(expectedMessage));
     }
 
-    private GameTurn createTurn() {
-        return new GameTurn(getPlayers());
+    private Turn createTurn() {
+        return new Turn(getPlayers());
     }
 
     private List<Player> getPlayers() {

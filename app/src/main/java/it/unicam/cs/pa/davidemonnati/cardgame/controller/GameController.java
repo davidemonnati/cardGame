@@ -1,5 +1,6 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.Rule;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Status;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
@@ -18,12 +19,12 @@ import java.util.function.BiConsumer;
  */
 public class GameController <T extends Table> implements Game {
     private final Status status;
-    private final GameTurn turn;
+    private final Turn turn;
     private final T table;
-    private final BiConsumer<? super T, GameTurn> rule;
+    private final BiConsumer<? super T, Turn> rule;
     private final View view;
 
-    public GameController(GameTurn turn, T table, BiConsumer<? super T, GameTurn> rule, View view) {
+    public GameController(Turn turn, T table, BiConsumer<? super T, Turn> rule, View view) {
         this.status = new Status();
         this.turn = turn;
         this.table = table;
@@ -40,7 +41,7 @@ public class GameController <T extends Table> implements Game {
      *
      * @throws IOException Errori di I/O
      * @see Status
-     * @see GameTurn
+     * @see Turn
      */
     @Override
     public void play() throws IOException {

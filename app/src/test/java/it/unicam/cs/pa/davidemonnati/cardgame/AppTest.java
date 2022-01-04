@@ -3,6 +3,9 @@
  */
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.GameController;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
@@ -25,12 +28,12 @@ class AppTest {
 
     @Test
     void createTurnTest() {
-        GameTurn gameTurn = new GameTurn(getPlayers());
+        Turn gameTurn = new Turn(getPlayers());
         assertNotNull(gameTurn);
     }
 
-    private GameTurn createTurn() {
-        return new GameTurn(getPlayers());
+    private Turn createTurn() {
+        return new Turn(getPlayers());
     }
 
     private List<Player> getPlayers() {

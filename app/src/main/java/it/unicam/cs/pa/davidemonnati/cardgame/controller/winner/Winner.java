@@ -1,4 +1,4 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller.winner;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 

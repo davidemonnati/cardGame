@@ -1,5 +1,6 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller.rule;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 
 import java.util.function.BiConsumer;
@@ -13,7 +14,7 @@ import java.util.function.BiConsumer;
  */
 public class DefaultRule implements Rule {
     @Override
-    public BiConsumer<NeapolitanTable, GameTurn> rule() {
+    public BiConsumer<NeapolitanTable, Turn> rule() {
         return (table, turn) -> {
             int scoreCard1 = table.getPlayedCards()[0].getScore();
             if (table.getPlayedCards()[1] != null) {

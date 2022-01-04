@@ -1,5 +1,6 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller.rule;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.NeapolitanSeed;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
@@ -11,7 +12,7 @@ import java.util.function.BiConsumer;
  */
 public class BriscolaRule implements Rule {
     @Override
-    public BiConsumer<BriscolaTable, GameTurn> rule() {
+    public BiConsumer<BriscolaTable, Turn> rule() {
         return (table, turn) -> {
             NeapolitanSeed briscola = table.getBriscolaSeed();
             Card card1 = table.getPlayedCards()[turn.getCurrentPlayer()];
@@ -45,7 +46,7 @@ public class BriscolaRule implements Rule {
      * @param turn  turno attuale
      * @param table lo stato del tavolo attuale
      */
-    private void presa(GameTurn turn, BriscolaTable table) {
+    private void presa(Turn turn, BriscolaTable table) {
         int scoreCard1 = table.getPlayedCards()[0].getScore();
         int scoreCard2 = table.getPlayedCards()[1].getScore();
         turn.setScore(turn.getCurrentPlayer(), (scoreCard1 + scoreCard2));

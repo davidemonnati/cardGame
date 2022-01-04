@@ -1,5 +1,7 @@
-package it.unicam.cs.pa.davidemonnati.cardgame;
+package it.unicam.cs.pa.davidemonnati.cardgame.controller;
 
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.BriscolaRule;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownGameException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
@@ -10,7 +12,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 public enum GamesList {
     DEFAULT, BRISCOLA;
 
-    public GameController<? extends Table> getGame(GameTurn turn) {
+    public GameController<? extends Table> getGame(Turn turn) {
         switch (this) {
             case DEFAULT:
                 return new GameController<>(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
