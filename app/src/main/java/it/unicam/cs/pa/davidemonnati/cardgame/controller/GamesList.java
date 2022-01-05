@@ -9,6 +9,14 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.BriscolaView;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 
+/**
+ * Enum che contiene tutti i possibili giochi a cui si possono giocare.
+ * Attualmente i giochi implementati sono i seguenti:
+ * <ul>
+ *     <li>Default</li>
+ *     <li>Briscola</li>
+ * </ul>
+ */
 public enum GamesList {
     DEFAULT, BRISCOLA;
 

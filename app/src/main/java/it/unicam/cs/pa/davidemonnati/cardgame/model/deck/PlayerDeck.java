@@ -2,7 +2,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model.deck;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 
-public interface PlayerDeck extends DeckOperations {
+public interface PlayerDeck extends Deck {
     /**
      * Permette di inserire carte all'interno del mazzo
      *

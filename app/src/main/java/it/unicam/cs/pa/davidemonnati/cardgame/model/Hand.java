@@ -1,7 +1,7 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.DeckOperations;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.deck.Deck;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Rappresenta la mano di un giocatore.
  */
-public interface Hand extends DeckOperations {
+public interface Hand extends Deck {
     /**
      * Permette di giocare una carta a scelta che si ha nella mano, passando la posizione come parametro.
      * Quando viene giocata una carta, quest'ultima viene eliminata dalla mano.

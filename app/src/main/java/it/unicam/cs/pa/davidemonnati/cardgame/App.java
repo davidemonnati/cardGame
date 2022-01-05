@@ -45,6 +45,17 @@ public class App {
         return new App(GamesList.values()[selectedGame].getGame(turn));
     }
 
+    /**
+     * Consente di creare giocatori per giocare a carte.
+     * Il metodo permette all'utente di inserire l'username che vuole dare ad ogni giocatore creato e di scegliere il
+     * tipo di {@link Player} richiamando il metodo <i>selectPlayerType()</i>.
+     *
+     * @return Lista dei giocatori creata
+     * @throws IOException                Errori di I/O
+     * @throws BadUsernameFormatException Eccezione che viene lanciata quando il numero dei caratteri
+     *                                    che formano l'username è troppo elevata, il massimo è di 15 caratteri
+     * @throws UnknownPlayerTypeException Eccezione che viene lanciata quando il tipo di player scelto non è corretto
+     */
     private static List<Player> createPlayers() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
         List<Player> players = new ArrayList<>();
         System.out.println();
@@ -60,11 +71,25 @@ public class App {
         return players;
     }
 
+    /**
+     * Consente all'utente di scegliere quale tipo di giocatore vuole creare.
+     *
+     * @return tipo di giocatore scelto dall'utente in formato <i>String</i>
+     * @throws IOException errori di I/O
+     * @see PlayerType
+     */
     private static String selectPlayerType() throws IOException {
         System.out.print("Seleziona il tipo di giocatore (Interactive/Random): ");
         return br.readLine().toUpperCase(Locale.ROOT);
     }
 
+    /**
+     * Consente al giocatore di scegliere a quale gioco di carte giocare.
+     *
+     * @return intero che rappresenta la posizione del gioco nel menù
+     * @throws IOException errori di I/0
+     * @see GamesList
+     */
     private static int selectGame() throws IOException {
         System.out.println("Lista giochi:");
         System.out.println("1 - Gioco default");

@@ -4,6 +4,9 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 
 import java.util.Stack;
 
+/**
+ * Rappresenta le carte che il giocatore ha preso in seguito ad una vincita.
+ */
 public class DefaultPlayerDeck implements PlayerDeck {
     Stack<Card> cards;
 
@@ -11,16 +14,26 @@ public class DefaultPlayerDeck implements PlayerDeck {
         this.cards = new Stack<>();
     }
 
+    /**
+     * @param card carta che vogliamo inserire all'interno del mazzo
+     */
     @Override
     public void insert(Card card) {
         this.cards.push(card);
     }
 
+    /**
+     * @return numero di carte che ci sono all'interno del mazzo
+     */
     @Override
     public int getSize() {
         return cards.size();
     }
 
+    /**
+     * @param card indica la carta che dobbiamo cercare all'interno del mazzo
+     * @return posizione della carta che vogliamo cercare nel mazzo
+     */
     @Override
     public int search(Card card) {
         return cards.search(card);

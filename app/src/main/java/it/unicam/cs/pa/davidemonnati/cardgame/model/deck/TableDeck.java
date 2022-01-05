@@ -5,7 +5,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 /**
  * Interfaccia che contiene metodi per la gestione di un <i>Deck</i>> base.
  */
-public interface TableDeck extends DeckOperations {
+public interface TableDeck extends Deck {
     /**
      * Permette di inserire carte all'interno del mazzo
      * @param card carta che vogliamo inserire all'interno del mazzo

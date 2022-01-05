@@ -5,7 +5,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 /**
  * Contiene i metodi base per la gestione di un <i>Deck</i>
  */
-public interface DeckOperations {
+public interface Deck {
     /**
      * Ritorna il numero di carte che sono presenti all'interno del mazzo.
      *
