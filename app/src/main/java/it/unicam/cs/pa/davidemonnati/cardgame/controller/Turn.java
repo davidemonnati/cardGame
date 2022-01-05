@@ -5,8 +5,8 @@ import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.Winner;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.Hand;
-import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ import java.util.List;
  * Tutte le operazioni che vengono effettuate si riferiscono al player che sta giocando la partita.
  */
 public class Turn {
+    private static Turn instance = null;
     /**
      * Lista giocatori.
      */
@@ -31,10 +32,17 @@ public class Turn {
      */
     private int currentPlayer;
 
-    public Turn(List<Player> players) {
+    private Turn(List<Player> players) {
         this.players = players;
         initHands();
         this.currentPlayer = 0;
+    }
+
+    public static Turn getInstance(List<Player> players) {
+        if (instance == null) {
+            instance = new Turn(players);
+        }
+        return instance;
     }
 
     /**

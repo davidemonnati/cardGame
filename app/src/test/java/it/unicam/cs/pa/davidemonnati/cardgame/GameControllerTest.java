@@ -21,7 +21,7 @@ public class GameControllerTest {
     @Test
     void gameControllerCreationTest() {
         NeapolitanTable table = new NeapolitanTable();
-        Game gameController = new GameController<>(createTurn(), table, new DefaultRule().rule(),
+        Game gameController = GameController.getInstance(createTurn(), table, new DefaultRule().rule(),
                 new ConsoleView());
         assertNotNull(gameController);
     }
@@ -34,7 +34,7 @@ public class GameControllerTest {
     }
 
     private Turn createTurn() {
-        return new Turn(getPlayers());
+        return Turn.getInstance(getPlayers());
     }
 
     private List<Player> getPlayers() {

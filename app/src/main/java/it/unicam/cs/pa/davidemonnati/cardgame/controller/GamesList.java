@@ -20,13 +20,15 @@ import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 public enum GamesList {
     DEFAULT, BRISCOLA;
 
-    public GameController<? extends Table> getGame(Turn turn) {
+    public <T extends Table> GameController<? extends Table> getGame(Turn turn) {
         switch (this) {
             case DEFAULT:
-                return new GameController<>(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
+                //return new GameController<>(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
+                return GameController.getInstance(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
             case BRISCOLA:
                 BriscolaTable table = new BriscolaTable();
-                return new GameController<>(turn, table, new BriscolaRule().rule(), new BriscolaView(table));
+                //return new GameController<>(turn, table, new BriscolaRule().rule(), new BriscolaView(table));
+                return GameController.getInstance(turn, table, new BriscolaRule().rule(), new BriscolaView(table));
             default:
                 throw new UnknownGameException();
         }

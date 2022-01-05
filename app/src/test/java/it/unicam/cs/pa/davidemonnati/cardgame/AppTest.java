@@ -21,19 +21,19 @@ class AppTest {
     @Test
     void newAppCreationTest() {
         NeapolitanTable table = new NeapolitanTable();
-        App app = new App(new GameController<>(createTurn(), table, new DefaultRule().rule(),
+        App app = new App(GameController.getInstance(createTurn(), table, new DefaultRule().rule(),
                 new ConsoleView()));
         assertNotNull(app);
     }
 
     @Test
     void createTurnTest() {
-        Turn gameTurn = new Turn(getPlayers());
+        Turn gameTurn = Turn.getInstance(getPlayers());
         assertNotNull(gameTurn);
     }
 
     private Turn createTurn() {
-        return new Turn(getPlayers());
+        return Turn.getInstance(getPlayers());
     }
 
     private List<Player> getPlayers() {

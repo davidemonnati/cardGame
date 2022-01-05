@@ -18,18 +18,27 @@ import java.util.function.BiConsumer;
  * @param <T> tipo generico che rappresenta una sottoclasse di {@link Table}
  */
 public class GameController <T extends Table> implements Game {
+    private static GameController<? extends Table> instance=null;
     private final Status status;
     private final Turn turn;
     private final T table;
     private final BiConsumer<? super T, Turn> rule;
     private final View view;
 
-    public GameController(Turn turn, T table, BiConsumer<? super T, Turn> rule, View view) {
-        this.status = new Status();
+    private GameController(Turn turn, T table, BiConsumer<? super T, Turn> rule, View view) {
+        this.status = Status.getInstance();
         this.turn = turn;
         this.table = table;
         this.rule = rule;
         this.view = view;
+    }
+
+    public static<T extends Table> GameController<? extends Table> getInstance(Turn turn, T table,
+                                                              BiConsumer<? super T, Turn> rule, View view) {
+        if (instance == null) {
+            instance = new GameController<>(turn, table, rule, view);
+        }
+        return instance;
     }
 
     /**

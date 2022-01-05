@@ -40,7 +40,7 @@ public class App {
     }
 
     private static App createGame() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
-        Turn turn = new Turn(createPlayers());
+        Turn turn = Turn.getInstance(createPlayers());
         int selectedGame = selectGame();
         return new App(GamesList.values()[selectedGame].getGame(turn));
     }

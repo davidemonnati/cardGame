@@ -11,7 +11,7 @@ public class StatusTest {
 
     @BeforeEach
     void creationStatusTest() {
-        status = new Status();
+        status = Status.getInstance();
         assertNotNull(status);
         assertTrue(status.isStatus());
     }

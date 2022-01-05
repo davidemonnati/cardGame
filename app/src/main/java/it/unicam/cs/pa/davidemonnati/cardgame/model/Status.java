@@ -5,6 +5,10 @@ package it.unicam.cs.pa.davidemonnati.cardgame.model;
  */
 public class Status {
     /**
+     * Unica istanza della classe
+     */
+    private static Status instance = null;
+    /**
      * La variabile <i>status</i> assume <b>true</b> quando la partita è in corso,
      * <b>false</b> quando è terminata.
      */
@@ -14,8 +18,15 @@ public class Status {
      * L'oggetto <i>status</i> viene inizializzato quando viene istanziato il controller <i>Game</i>,
      * per questo motivo di default assume come valore: <b>true</b>.
      */
-    public Status() {
+    private Status() {
         this.status = true;
+    }
+
+    public static Status getInstance() {
+        if (instance == null) {
+            instance = new Status();
+        }
+        return instance;
     }
 
     /**

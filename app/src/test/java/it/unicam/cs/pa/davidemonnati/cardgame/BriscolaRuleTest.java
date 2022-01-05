@@ -29,7 +29,7 @@ public class BriscolaRuleTest <T extends Table> {
 
     public BriscolaRuleTest() {
         this.briscolaTable = new BriscolaTable();
-        this.turn = new Turn(createPlayers());
+        this.turn=Turn.getInstance(createPlayers());
         this.rule = new BriscolaRule().rule();
         this.briscola = new Cavallo(NeapolitanSeed.SPADE);
     }
