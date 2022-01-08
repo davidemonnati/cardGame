@@ -2,12 +2,16 @@ package it.unicam.cs.pa.davidemonnati.cardgame.controller;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.BriscolaRule;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownGameException;
+import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.BriscolaView;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
+
+import java.util.List;
 
 /**
  * Enum che contiene tutti i possibili giochi a cui si possono giocare.
@@ -20,17 +24,19 @@ import it.unicam.cs.pa.davidemonnati.cardgame.view.ConsoleView;
 public enum GamesList {
     DEFAULT, BRISCOLA;
 
-    public <T extends Table> GameController<? extends Table> getGame(Turn turn) {
+    public GameController<? extends Table> getGame(List<Player> players) {
+        Turn turn;
         switch (this) {
-            case DEFAULT:
-                //return new GameController<>(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
-                return GameController.getInstance(turn, new NeapolitanTable(), new DefaultRule().rule(), new ConsoleView());
-            case BRISCOLA:
+            case DEFAULT -> {
+                turn = Turn.getInstance(players, new DefaultWinner());
+                return GameController.getInstance(turn, new NeapolitanTable(), new DefaultRule(3), new ConsoleView());
+            }
+            case BRISCOLA -> {
                 BriscolaTable table = new BriscolaTable();
-                //return new GameController<>(turn, table, new BriscolaRule().rule(), new BriscolaView(table));
-                return GameController.getInstance(turn, table, new BriscolaRule().rule(), new BriscolaView(table));
-            default:
-                throw new UnknownGameException();
+                turn = Turn.getInstance(players, new DefaultWinner());
+                return GameController.getInstance(turn, table, new BriscolaRule(3), new BriscolaView(table));
+            }
+            default -> throw new UnknownGameException();
         }
     }
 }

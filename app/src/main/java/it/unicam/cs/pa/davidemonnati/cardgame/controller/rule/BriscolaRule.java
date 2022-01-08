@@ -10,7 +10,21 @@ import java.util.function.BiConsumer;
 /**
  * Regola per giocare a Briscola
  */
-public class BriscolaRule implements Rule {
+public class BriscolaRule implements Rule<BriscolaTable> {
+    /**
+     * Numero di carte che devono essere prese all'inizio della partita
+     */
+    private final int cards;
+
+    public BriscolaRule(int cards) {
+        this.cards = cards;
+    }
+
+    @Override
+    public int getCards() {
+        return this.cards;
+    }
+
     @Override
     public BiConsumer<BriscolaTable, Turn> rule() {
         return (table, turn) -> {

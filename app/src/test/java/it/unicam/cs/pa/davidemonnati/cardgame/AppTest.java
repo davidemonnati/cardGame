@@ -6,6 +6,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.GameController;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
@@ -21,19 +22,18 @@ class AppTest {
     @Test
     void newAppCreationTest() {
         NeapolitanTable table = new NeapolitanTable();
-        App app = new App(GameController.getInstance(createTurn(), table, new DefaultRule().rule(),
-                new ConsoleView()));
+        App app = new App(GameController.getInstance(createTurn(), table, new DefaultRule(3), new ConsoleView()));
         assertNotNull(app);
     }
 
     @Test
     void createTurnTest() {
-        Turn gameTurn = Turn.getInstance(getPlayers());
+        Turn gameTurn = Turn.getInstance(getPlayers(), new DefaultWinner());
         assertNotNull(gameTurn);
     }
 
     private Turn createTurn() {
-        return Turn.getInstance(getPlayers());
+        return Turn.getInstance(getPlayers(), new DefaultWinner());
     }
 
     private List<Player> getPlayers() {

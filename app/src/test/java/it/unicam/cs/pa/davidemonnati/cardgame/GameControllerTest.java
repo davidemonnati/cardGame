@@ -4,6 +4,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.controller.Game;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.GameController;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.DefaultRule;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.InteractivePlayer;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
@@ -21,7 +22,7 @@ public class GameControllerTest {
     @Test
     void gameControllerCreationTest() {
         NeapolitanTable table = new NeapolitanTable();
-        Game gameController = GameController.getInstance(createTurn(), table, new DefaultRule().rule(),
+        Game gameController = GameController.getInstance(createTurn(), table, new DefaultRule(3),
                 new ConsoleView());
         assertNotNull(gameController);
     }
@@ -34,7 +35,7 @@ public class GameControllerTest {
     }
 
     private Turn createTurn() {
-        return Turn.getInstance(getPlayers());
+        return Turn.getInstance(getPlayers(), new DefaultWinner());
     }
 
     private List<Player> getPlayers() {

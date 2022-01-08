@@ -1,6 +1,5 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.controller;
 
-import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.Winner;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.IllegalCardPositionException;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.DefaultHand;
@@ -32,15 +31,21 @@ public class Turn {
      */
     private int currentPlayer;
 
-    private Turn(List<Player> players) {
+    /**
+     * Regola che serve a stibilire il vincitore della partita
+     */
+    private final Winner winner;
+
+    private Turn(List<Player> players, Winner winner) {
         this.players = players;
         initHands();
         this.currentPlayer = 0;
+        this.winner = winner;
     }
 
-    public static Turn getInstance(List<Player> players) {
+    public static Turn getInstance(List<Player> players, Winner winner) {
         if (instance == null) {
-            instance = new Turn(players);
+            instance = new Turn(players, winner);
         }
         return instance;
     }
@@ -157,7 +162,6 @@ public class Turn {
      * @return l'id del giocatore che ha vinto la partita.
      */
     public Integer winner() {
-        Winner winner = new DefaultWinner();
         return winner.check().apply(players);
     }
 }

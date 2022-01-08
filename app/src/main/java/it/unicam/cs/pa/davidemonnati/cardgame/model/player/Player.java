@@ -10,7 +10,7 @@ public abstract class Player {
      */
     private final int id;
     private final String username;
-    private int score;
+    private int score = 0;
 
     public Player(Integer id, String name) {
         this.id = id;

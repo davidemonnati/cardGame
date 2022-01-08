@@ -4,7 +4,6 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Regola di default dove il vincitore è colui che ha totalizzato il punteggio maggiore.
@@ -17,7 +16,6 @@ public class DefaultWinner implements Winner {
                         players.stream()
                                 .mapToInt(Player::getScore)
                                 .max().orElseThrow(NullPointerException::new))
-                )
-                .collect(Collectors.toList()).get(0).getId();
+                ).toList().get(0).getId();
     }
 }

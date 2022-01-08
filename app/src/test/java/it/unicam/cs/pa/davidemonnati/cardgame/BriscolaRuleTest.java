@@ -2,6 +2,7 @@ package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.rule.BriscolaRule;
+import it.unicam.cs.pa.davidemonnati.cardgame.controller.winner.DefaultWinner;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.Cavallo;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.card.neapolitan.Liscio;
@@ -29,8 +30,8 @@ public class BriscolaRuleTest <T extends Table> {
 
     public BriscolaRuleTest() {
         this.briscolaTable = new BriscolaTable();
-        this.turn=Turn.getInstance(createPlayers());
-        this.rule = new BriscolaRule().rule();
+        this.turn = Turn.getInstance(createPlayers(), new DefaultWinner());
+        this.rule = new BriscolaRule(3).rule();
         this.briscola = new Cavallo(NeapolitanSeed.SPADE);
     }
 
@@ -46,17 +47,29 @@ public class BriscolaRuleTest <T extends Table> {
     void giocataTest() {
         NeapolitanSeed briscola = briscolaTable.getBriscolaSeed();
         Card player1Card = new Liscio(NeapolitanSeed.BASTONI, NeapolitanRank.QUATTRO);
-        Card player2Card = new Liscio(NeapolitanSeed.DENARI, NeapolitanRank.SETTE);
+        Card player2Card = new Liscio(NeapolitanSeed.DENARI, NeapolitanRank.RE);
         briscolaTable.playCard(0, player1Card);
         briscolaTable.playCard(1, player2Card);
         assertEquals(0, turn.getCurrentPlayer());
         rule.accept(briscolaTable, turn);
-        if (player1Card.getSeed() == briscola) {
+        List<Player> players = turn.getPlayers();
+        if (((player1Card.getSeed() != briscola) && (player2Card.getSeed() != briscola)) ||
+                ((player1Card.getSeed() == briscola) && (player2Card.getSeed() == briscola))) {
+            if (player1Card.getRank().ordinal() >= player2Card.getRank().ordinal()) {
+                turn.setScore(turn.getCurrentPlayer(), (player1Card.getScore() + player2Card.getScore()));
+                assertEquals(0, turn.getCurrentPlayer());
+            } else {
+                turn.setScore(turn.getOpponentPlayer(), (player1Card.getScore() + player2Card.getScore()));
+                turn.setTurn(turn.getOpponentPlayer());
+                assertEquals(1, turn.getOpponentPlayer());
+            }
+        } else if (player1Card.getSeed() == briscola) {
+            turn.setScore(turn.getCurrentPlayer(), (player1Card.getScore() + player2Card.getScore()));
             assertEquals(0, turn.getCurrentPlayer());
         } else if (player2Card.getSeed() == briscola) {
-            assertEquals(1, turn.getCurrentPlayer());
-        } else {
-            assertEquals(1, turn.getCurrentPlayer());
+            turn.setScore(turn.getOpponentPlayer(), (player1Card.getScore() + player2Card.getScore()));
+            turn.setTurn(turn.getOpponentPlayer());
+            assertEquals(1, turn.getOpponentPlayer());
         }
     }
 

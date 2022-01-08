@@ -8,24 +8,23 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
 
 /**
  * Classe generica che ha come responsabilità quella di gestire l'intera partita.
  * Nello specifico andiamo a gestire le azioni base del <i>Player</i> ovvero quella di prendere delle carte e
  * di giocarle, l'avvio e la terminazione della partita.
  *
- * @param <T> tipo generico che rappresenta una sottoclasse di {@link Table}
+ * @param <T> tipo generico che rappresenta una classe che estende {@link Table}
  */
 public class GameController <T extends Table> implements Game {
     private static GameController<? extends Table> instance=null;
     private final Status status;
     private final Turn turn;
     private final T table;
-    private final BiConsumer<? super T, Turn> rule;
+    private final Rule<T> rule;
     private final View view;
 
-    private GameController(Turn turn, T table, BiConsumer<? super T, Turn> rule, View view) {
+    private GameController(Turn turn, T table, Rule<T> rule, View view) {
         this.status = Status.getInstance();
         this.turn = turn;
         this.table = table;
@@ -33,8 +32,8 @@ public class GameController <T extends Table> implements Game {
         this.view = view;
     }
 
-    public static<T extends Table> GameController<? extends Table> getInstance(Turn turn, T table,
-                                                              BiConsumer<? super T, Turn> rule, View view) {
+    public static<T extends Table> GameController<? extends Table>getInstance(Turn turn, T table,
+                                                                              Rule<T> rule, View view) {
         if (instance == null) {
             instance = new GameController<>(turn, table, rule, view);
         }
@@ -92,7 +91,7 @@ public class GameController <T extends Table> implements Game {
     private void doAction() throws IOException, IllegalCardPositionException {
         playCard();
         takeCard();
-        rule.accept(table, turn);
+        rule.rule().accept(table, turn);
         if (turn.getHandSize() == 0) {
             status.changeStatus();
         }
@@ -114,7 +113,7 @@ public class GameController <T extends Table> implements Game {
      */
     private void takeFirstCards() {
         for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
+            for (int j = 0; j < rule.getCards(); j++) {
                 Card toTake = table.takeCardFromDeck();
                 turn.takeCard(toTake);
             }

@@ -7,18 +7,26 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.table.Table;
 import java.util.function.BiConsumer;
 
 /**
- * Interfaccia che serve a definire la regola di un gioco di carte.
+ * Interfaccia che ha il compito di rappresentare la regola di un gioco da carte e le sue proprietà
+ * @param <T> oggetto che estende la classe {@link Table}
  */
-@FunctionalInterface
-public interface Rule {
+public interface Rule <T extends Table> {
     /**
-     * Ogni volta che si applica la regola verrà restituito il nuovo stato dell'istanza di {@link Turn}
+     * @return numero delle carte che ogni giocatore deve avere all'inizio della partita.
+     */
+    int getCards();
+
+    /**
+     * Ad ogni turno la regola permette di stabilire quale giocatore deve prendere le carte, chi si aggiudica la mano
+     * e quindi chi riceve il punteggio.
+     * Infine verrà modificato currentPlayer dentro {@link Turn} in modo da stabilire a chi apparterrà
+     * il turno durante la prossima mossa.
      *
-     * @return BiConsumer che accetta in input un {@link Table} e un {@link Turn} per eseguire la regola di gioco
-     * sulle carte che sono state giocate.
+     * @return BiConsumer che accetta in input un parametro di tipo <i>T</i> e un {@link Turn} per eseguire
+     * la regola di gioco sulle carte che sono state giocate.
      * @see Table
      * @see Turn
      * @see Player
      */
-    BiConsumer<? extends Table, Turn> rule();
+    BiConsumer<T, Turn> rule();
 }

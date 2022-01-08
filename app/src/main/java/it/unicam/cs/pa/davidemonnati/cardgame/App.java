@@ -4,7 +4,6 @@
 package it.unicam.cs.pa.davidemonnati.cardgame;
 
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.Game;
-import it.unicam.cs.pa.davidemonnati.cardgame.controller.Turn;
 import it.unicam.cs.pa.davidemonnati.cardgame.controller.GamesList;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.BadUsernameFormatException;
 import it.unicam.cs.pa.davidemonnati.cardgame.exception.UnknownGameException;
@@ -40,9 +39,9 @@ public class App {
     }
 
     private static App createGame() throws IOException, BadUsernameFormatException, UnknownPlayerTypeException {
-        Turn turn = Turn.getInstance(createPlayers());
+        List<Player> players = createPlayers();
         int selectedGame = selectGame();
-        return new App(GamesList.values()[selectedGame].getGame(turn));
+        return new App(GamesList.values()[selectedGame].getGame(players));
     }
 
     /**

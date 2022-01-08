@@ -12,7 +12,21 @@ import java.util.function.BiConsumer;
  * Questa è solamente una semplice regola per fare test e non rappresenta in alcun modo nessun tipo di gioco
  * di carte esistente.
  */
-public class DefaultRule implements Rule {
+public class DefaultRule implements Rule<NeapolitanTable> {
+    /**
+     * Numero di carte che devono essere prese all'inizio della partita
+     */
+    private final int cards;
+
+    public DefaultRule(int cards) {
+        this.cards = cards;
+    }
+
+    @Override
+    public int getCards() {
+        return cards;
+    }
+
     @Override
     public BiConsumer<NeapolitanTable, Turn> rule() {
         return (table, turn) -> {

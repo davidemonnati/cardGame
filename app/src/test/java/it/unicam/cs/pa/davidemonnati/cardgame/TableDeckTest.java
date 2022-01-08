@@ -20,9 +20,11 @@ public class TableDeckTest {
     void insertCardTest() {
         Card card = new Liscio(NeapolitanSeed.BASTONI, NeapolitanRank.DUE);
         TableDeck deck = DefaultTableDeck.empty();
+        assertEquals(0, deck.getSize());
         deck.insert(card);
         assertEquals(1, deck.getSize());
-        assertEquals(card, deck.removeCard());
+        Card removedCard = deck.removeCard();
+        assertEquals(card, removedCard);
         assertEquals(0, deck.getSize());
     }
 
