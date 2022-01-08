@@ -44,9 +44,9 @@ public class HandTest {
 
     private Hand getHand() {
         Hand hand = new DefaultHand();
-        hand.takeCard(getSampleDeck()[0]);
-        hand.takeCard(getSampleDeck()[1]);
-        hand.takeCard(getSampleDeck()[2]);
+        hand.insert(getSampleDeck()[0]);
+        hand.insert(getSampleDeck()[1]);
+        hand.insert(getSampleDeck()[2]);
         return hand;
     }
 

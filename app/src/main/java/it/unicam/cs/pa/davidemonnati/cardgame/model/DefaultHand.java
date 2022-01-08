@@ -13,7 +13,7 @@ public class DefaultHand implements Hand {
     }
 
     @Override
-    public void takeCard(Card card) {
+    public void insert(Card card) {
         cards.add(card);
     }
 

@@ -55,7 +55,7 @@ public class TableTest {
     private void takeCard(Table table, Hand hand) {
         if (table.tableDeckSize() > 0) {
             Card toTake = table.takeCardFromDeck();
-            hand.takeCard(toTake);
+            hand.insert(toTake);
         }
     }
 }

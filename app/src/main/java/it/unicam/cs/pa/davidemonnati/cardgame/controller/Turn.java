@@ -65,7 +65,7 @@ public class Turn {
      * @param card carta che il giocatore prende in mano
      */
     public void takeCard(Card card) {
-        hands.get(currentPlayer).takeCard(card);
+        hands.get(currentPlayer).insert(card);
     }
 
     /**
