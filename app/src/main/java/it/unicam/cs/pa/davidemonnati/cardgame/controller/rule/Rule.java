@@ -18,7 +18,7 @@ public interface Rule <T extends Table> {
 
     /**
      * Ad ogni turno la regola permette di stabilire quale giocatore deve prendere le carte, chi si aggiudica la mano
-     * e quindi chi riceve il punteggio.
+     * e quindi chi riceve il punteggio. <br />
      * Infine verrà modificato currentPlayer dentro {@link Turn} in modo da stabilire a chi apparterrà
      * il turno durante la prossima mossa.
      *

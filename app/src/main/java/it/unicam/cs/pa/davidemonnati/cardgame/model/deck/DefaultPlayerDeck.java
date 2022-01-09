@@ -15,7 +15,7 @@ public class DefaultPlayerDeck implements PlayerDeck {
     }
 
     /**
-     * @param card carta che vogliamo inserire all'interno del mazzo
+     * @param card carta che vogliamo inserire dentro al mazzo
      */
     @Override
     public void insert(Card card) {
@@ -31,8 +31,13 @@ public class DefaultPlayerDeck implements PlayerDeck {
     }
 
     /**
+     * Serve a ricercare una carta dentro al mazzo, il metodo deve ritornare la posizione se la carta è presente,
+     * ritorna come valore -1 altrimenti.<br />
+     * Ho implementato la ricerca utilizzando il metodo <i>search()</i> della classe {@link Stack} di java.
+     *
      * @param card indica la carta che dobbiamo cercare all'interno del mazzo
      * @return posizione della carta che vogliamo cercare nel mazzo
+     * @see Stack
      */
     @Override
     public int search(Card card) {

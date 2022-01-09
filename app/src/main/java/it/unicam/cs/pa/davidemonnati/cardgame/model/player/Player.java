@@ -1,8 +1,8 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model.player;
 
 /**
- * Classe astratta che rappresenta un giocatore, il quale può essere esteso per creare diversi
- * tipi di giocatori.
+ * Classe astratta che rappresenta un giocatore base. <br />
+ * I giocatori possono essere estesi in modo da poter creare più tipi di giocatori diversi.
  */
 public abstract class Player {
     /**
@@ -32,6 +32,8 @@ public abstract class Player {
     }
 
     /**
+     * Incrementa il punteggio con un valore che vogliamo passare in input.
+     *
      * @param score punteggio da incrementare a quello esistente
      */
     public void setScore(int score) {

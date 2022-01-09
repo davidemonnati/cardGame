@@ -4,8 +4,8 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.player.Player;
 import it.unicam.cs.pa.davidemonnati.cardgame.model.table.BriscolaTable;
 
 /**
- * View che serve per giocare a briscola.
- * A differenza della {@link ConsoleView} in questo caso dobbiamo mostrare a schermo quale è il seme della briscola.
+ * View utilizzata per giocare a briscola.
+ * A differenza della {@link ConsoleView} in questo caso dobbiamo mostrare a schermo alcune informazioni in più.
  */
 public class BriscolaView extends ConsoleView {
     private final BriscolaTable briscolaTable;

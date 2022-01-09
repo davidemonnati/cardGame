@@ -11,12 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe che si occupa di gestire i turni del gioco.
+ * Classe che si occupa di gestire i turni del gioco. <br />
  * All'interno della classe troviamo la variabile intera <i>currentPlayer</i> che stabilisce a quale giocatore
- * appartiene il turno corrente.
- * Tutte le operazioni che vengono effettuate si riferiscono al player che sta giocando la partita.
+ * appartiene il turno attuale.
  */
 public class Turn {
+    /**
+     * Classe singleton.
+     */
     private static Turn instance = null;
     /**
      * Lista giocatori.
@@ -32,7 +34,7 @@ public class Turn {
     private int currentPlayer;
 
     /**
-     * Regola che serve a stibilire il vincitore della partita
+     * Regola che serve a stabilire il vincitore della partita
      */
     private final Winner winner;
 
@@ -43,6 +45,13 @@ public class Turn {
         this.winner = winner;
     }
 
+    /**
+     * Ritorna l'istanza della classe o la crea se è uguale a <i>null</i>.
+     *
+     * @param players lista dei giocatori
+     * @param winner  regola per stabilire che è il vincitore
+     * @return istanza della classe
+     */
     public static Turn getInstance(List<Player> players, Winner winner) {
         if (instance == null) {
             instance = new Turn(players, winner);
@@ -60,7 +69,7 @@ public class Turn {
     }
 
     /**
-     * Ad ogni turno, serve al giocatore identificato con <i>currentPlayer</i> di prendere una carta in mano.
+     * Serve al giocatore identificato con <i>currentPlayer</i> di prendere una carta in mano.
      *
      * @param card carta che il giocatore prende in mano
      */
@@ -69,10 +78,10 @@ public class Turn {
     }
 
     /**
-     * Consente al giocatore di giocare una carta dalla propria mano.
+     * Consente al {@link Player} di giocare una carta dalla propria mano.
      *
      * @param pos posizione della carta che il giocatore vuole giocare
-     * @return ritorna la carta corrispondente a <i>pos</i> nella mano di <i>currentPlayer</i>
+     * @return ritorna la carta di posizione<i>pos</i> nella mano di <i>currentPlayer</i>
      * @throws IllegalCardPositionException se la posizione della carta non è corretta
      */
     public Card playCard(Integer pos) throws IllegalCardPositionException {
@@ -89,7 +98,7 @@ public class Turn {
     }
 
     /**
-     * Consente di cambiare turno impostando l'id del giocatore
+     * Consente di cambiare turno impostando l'id di un altro giocatore
      *
      * @param playerID id giocatore
      */
@@ -147,7 +156,7 @@ public class Turn {
     }
 
     /**
-     * Imposta il punteggio ad un giocatore.
+     * Setta il punteggio ad un giocatore.
      *
      * @param playerID id del player che sta giocando la partita
      * @param score    punteggio che si deve incrementare al giocatore
@@ -157,9 +166,11 @@ public class Turn {
     }
 
     /**
-     * Metodo che serve a definire quale giocatore ha vinto la partita e ritorna il suo ID.
+     * Metodo che applica la <i>Function</i> che è contenuta all'interno della classe {@link Winner}, che serve
+     * a stabilire quale giocatore ha vinto la partita, ritornando il suo <i>id</i>.
      *
      * @return l'id del giocatore che ha vinto la partita.
+     * @see java.util.function.Function
      */
     public Integer winner() {
         return winner.check().apply(players);

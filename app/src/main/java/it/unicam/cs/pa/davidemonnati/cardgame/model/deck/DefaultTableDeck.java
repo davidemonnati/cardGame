@@ -20,9 +20,9 @@ public class DefaultTableDeck implements TableDeck {
     }
 
     /**
-     * Permette di inserire una carta all'interno del mazzo.
+     * Inserisce una carta all'interno del mazzo.
      *
-     * @param card carta che vogliamo inserire all'interno del mazzo
+     * @param card carta che vogliamo inserire
      */
     @Override
     public void insert(Card card) {
@@ -30,10 +30,10 @@ public class DefaultTableDeck implements TableDeck {
     }
 
     /**
-     * Permette di rimuovere una carta dal mazzo, ovvero quando un giocatore deve prendere una carta quest'ultima
-     * viene eliminata dal mazzo.
+     * Permette di rimuovere una carta dal mazzo, ovvero quando un giocatore deve prendere una carta, quest'ultima
+     * verrà ritornata come valore ed eliminata dalla struttura dati.<br />
      * Visto che utilizzo la struttura LIFO, per eliminare la carta utilizzo direttamente il metodo <i>pop</i> della
-     * classe Stack di Java.
+     * classe {@link Stack} di Java.
      *
      * @return carta che pè stata tolta dal mazzo per essere spostata nella mano del giocatore.
      * @see Stack
@@ -55,8 +55,8 @@ public class DefaultTableDeck implements TableDeck {
     }
 
     /**
-     * Serve per randomizzare le carte che ci sono all'interno del mazzo, ovvero per mescolarle.
-     * Ho utilizzato il metodo <i>shuffle</i> che troviamo nella classe Collection di Java
+     * Serve a randomizzare le carte che ci sono all'interno del mazzo, ovvero per mescolarle. <br />
+     * Ho utilizzato il metodo <i>shuffle</i> che troviamo nella classe {@link Collections} di Java
      *
      * @see Collections
      */
@@ -66,6 +66,8 @@ public class DefaultTableDeck implements TableDeck {
     }
 
     /**
+     * Ritorna la grandezza del mazzo.
+     *
      * @return numero di carte presenti all'interno del mazzo
      */
     @Override

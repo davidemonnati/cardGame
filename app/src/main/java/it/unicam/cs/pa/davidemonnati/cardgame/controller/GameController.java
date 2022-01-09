@@ -10,14 +10,17 @@ import it.unicam.cs.pa.davidemonnati.cardgame.view.View;
 import java.io.IOException;
 
 /**
- * Classe generica che ha come responsabilità quella di gestire l'intera partita.
+ * Classe generica che ha come responsabilità quella di gestire l'intera partita. <br />
  * Nello specifico andiamo a gestire le azioni base del <i>Player</i> ovvero quella di prendere delle carte e
  * di giocarle, l'avvio e la terminazione della partita.
  *
  * @param <T> tipo generico che rappresenta una classe che estende {@link Table}
  */
 public class GameController <T extends Table> implements Game {
-    private static GameController<? extends Table> instance=null;
+    /**
+     * Classe singleton.
+     */
+    private static GameController<? extends Table> instance = null;
     private final Status status;
     private final Turn turn;
     private final T table;
@@ -32,6 +35,16 @@ public class GameController <T extends Table> implements Game {
         this.view = view;
     }
 
+    /**
+     * Ritorna l'istanza della classe o la crea se è uguale a <i>null</i>.
+     *
+     * @param turn oggetto che rappresenta il turno della partita
+     * @param table tavolo da gioco
+     * @param rule regola da applicare al gioco scelto
+     * @param view view per interagire con l'utente
+     * @param <T> tipo che estende la classe {@link Table}
+     * @return istanza della classe
+     */
     public static<T extends Table> GameController<? extends Table>getInstance(Turn turn, T table,
                                                                               Rule<T> rule, View view) {
         if (instance == null) {
@@ -42,9 +55,9 @@ public class GameController <T extends Table> implements Game {
 
     /**
      * Gestisce l'esecuzione della partita mantenendo un ciclo <i>while</i> attivo finché lo stato della partita è
-     * uguale a <i>true</i>.
+     * uguale a <i>true</i>. <br />
      * All'interno del <i>while</i> richiamo il metodo <i>doAction()</i> che si occupa di far eseguire alcune azioni
-     * all'utente.
+     * all'utente. <br />
      * Quando lo stato diventa <i>false</i> il ciclo viene interrotto e si stabilisce chi è il vincitore.
      *
      * @throws IOException Errori di I/O
@@ -73,7 +86,7 @@ public class GameController <T extends Table> implements Game {
     }
 
     /**
-     * Azioni che vengono eseguite dal giocatore durante il suo turno.
+     * Azioni che vengono eseguite dal giocatore durante il suo turno.<br />
      * Le azioni consistono nel:
      * <ul>
      *     <li>Giocare una carta dalla mano</li>
@@ -122,7 +135,7 @@ public class GameController <T extends Table> implements Game {
     }
 
     /**
-     * Consente al giocatore di giocare una carta dalla propria mano.
+     * Consente al giocatore di giocare una carta dalla propria mano.<br />
      * Viene invocato il metodo <i>updateState()</i> dalla view che stampa lo stato attuale della partita, la mano del
      * giocatore e richiede al Player di selezionare una carta da giocare.
      *

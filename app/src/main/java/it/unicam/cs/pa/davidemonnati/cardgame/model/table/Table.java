@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Rappresenta il tavolo di gioco, il quale ha la responsabilità di gestire il TableDeck,
- * le carte che vengono giocate dai due giocatori e il mazzo delle carte che sono state aggiudicate
- * dai giocatori.
+ * Rappresenta il tavolo di gioco, il quale ha la responsabilità di gestire: il TableDeck,
+ * le carte che vengono giocate dai due giocatori e il {@link PlayerDeck} cioè il mazzo di carte dei giocatori. <br />
+ * {@link PlayerDeck} è il mazzo in cui vengono salvate le carte che vengono prese dai giocatori quando si aggiudicano
+ * la mano.
  */
 public abstract class Table {
     protected final TableDeck tableDeck;
@@ -25,6 +26,9 @@ public abstract class Table {
         initPlayerDeck();
     }
 
+    /**
+     * Inizializza la lista con i mazzi dei giocatori.
+     */
     private void initPlayerDeck() {
         this.playerDecks = new ArrayList<>();
         this.playerDecks.add(new DefaultPlayerDeck());
@@ -32,7 +36,7 @@ public abstract class Table {
     }
 
     /**
-     * Ritorna il numero delle carte che sono presenti all'interno del TableDeck.
+     * Ritorna il numero delle carte che sono presenti all'interno di {@link TableDeck}.
      *
      * @return valore intero corrispondente al numero di carte che ci sono nel TableDeck
      * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck
@@ -42,8 +46,8 @@ public abstract class Table {
     }
 
     /**
-     * Permette ad un giocatore di prendere una carta dal mazzo.
-     * In seguito alla presa la carta verrà eliminata dal TableDeck
+     * Permette ad un giocatore di prendere una carta dal mazzo. <br />
+     * Quando la carta viene presa dal mazzo dovrà essere eliminata da esso.
      *
      * @return la prima carta che si trova in cima al mazzo
      * @see it.unicam.cs.pa.davidemonnati.cardgame.model.deck.TableDeck
@@ -53,9 +57,9 @@ public abstract class Table {
     }
 
     /**
-     * Permette ad un <i>Player</i> di giocare una {@link Card}.
-     * La {@link Card} giocata verrà passata come parametro ed inserita all'interno della posizione
-     * corrispondente all'id del <i>Player</i>
+     * Permette ad un <i>Player</i> di giocare una {@link Card}. <br />
+     * La {@link Card} giocata deve essere passata come parametro ed inserita all'interno di <i>playedCards</i>, nella
+     * posizione corrispondente all'id del <i>Player</i>.
      *
      * @param currentPlayer id del player che deve giocare la carta
      * @param card          carta che il giocatore vuole giocare
@@ -72,8 +76,8 @@ public abstract class Table {
     }
 
     /**
-     * In seguito ad una vincita inserisce le {@link Card} giocate che ci sono sul {@link Table} all'interno
-     * del mazzo del <i>Player</i> che ha vinto la mano.
+     * In seguito alla vincita di un turno inserisce le {@link Card} giocate da entrambi i giocatori all'interno della
+     * lista di {@link PlayerDeck}, nella posizione che corrisponde l'id del vincitore.
      *
      * @param currentPlayer id del <i>Player</i> che ha vinto la mano
      */
@@ -96,7 +100,7 @@ public abstract class Table {
     /**
      * Ogni volta che il <i>Player</i> si aggiudica la mano è necessario svuotare
      * l'array <i>playedCards</i>.
-     * Questo metodo verrà utilizzato anche dal costrutture per inizializzare <i>playedCards</i>
+     * Questo metodo può essere utilizzato anche dal costrutture per inizializzare <i>playedCards</i>
      * la prima volta.
      */
     public void resetPlayedCards() {

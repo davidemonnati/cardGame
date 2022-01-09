@@ -7,6 +7,7 @@ import java.util.function.Function;
 
 /**
  * Regola di default dove il vincitore è colui che ha totalizzato il punteggio maggiore.
+ * @see Function
  */
 public class DefaultWinner implements Winner {
     @Override

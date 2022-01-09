@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+/**
+ * Implementazione dell'interfaccia {@link View}
+ */
 public class ConsoleView implements View {
     protected final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -31,13 +34,13 @@ public class ConsoleView implements View {
     }
 
     /**
-     * Metodo pubblico che serve ad aggiornare lo stato della view chiedendo ogni volta
-     * al {@link Player} quale carta vuole giocare.
-     * Il metodo stampa l'elenco delle carte che il giocatore ha nella propria mano e chiede quele carta vuole giocare,
-     * ritornando poi la posizione della carta che è stata selezionata.
+     * Metodo pubblico che serve ad aggiornare lo stato della <i>view</i> chiedendo ogni volta
+     * al {@link Player} quale carta vuole giocare. <br />
+     * Il metodo stampa l'elenco delle carte che il giocatore ha nella propria mano e chiede quale carta vuole giocare,
+     * ritornando infine della carta che è stata selezionata.
      *
-     * @param hand   mano del giocatore per stampare l'elenco delle carte
-     * @param player per stampare username e punteggio
+     * @param hand   mano del giocatore a cui appartiene il turno
+     * @param player per la stampa di username e punteggio
      * @return posizione della carta che il giocatore ha selezionato
      * @throws IOException           Eccezione che viene lanciata quando ci sono errori durante l'inserimento di dati da tastiera
      * @throws NumberFormatException Eccezione che viene lanciata quando ci sono errori durante la conversione del dato
@@ -67,7 +70,7 @@ public class ConsoleView implements View {
     }
 
     /**
-     * Stampa su schermo tutte le carte che il giocatore ha in mano
+     * Visualizza tutte le carte che il {@link Player} ha in mano.
      *
      * @param hand mano del giocatore.
      * @see Hand
@@ -81,9 +84,9 @@ public class ConsoleView implements View {
     /**
      * Consente al giocatore di scegliere una carta da giocare.
      * Nel caso in cui si tratta di un {@link InteractivePlayer}, verrà chiesto all'utente di inserire da tastiera
-     * il numero che corrisponde alla posizione della carta che vuole giocare.
+     * il numero che corrisponde alla posizione della carta che vuole giocare. <br />
      * Se invece il giocatore è un bot, verrà invocato il metodo <i>selectCard()</i> che appartiene
-     * alla classe {@link RandomPlayer}.
+     * alla classe {@link RandomPlayer}, il quale sceglierà la carta mediante l'apposito algoritmo.
      *
      * @param hand   mano del giocatore che sta giocando la partita
      * @param player giocatore a cui appartiene il turno
@@ -116,6 +119,9 @@ public class ConsoleView implements View {
         System.out.println();
     }
 
+    /**
+     * Stampa due righe vuote.
+     */
     protected void newLines() {
         for (int i = 0; i < 2; i++) {
             System.out.println();

@@ -13,6 +13,7 @@ public interface Winner {
     /**
      * @return Function che riceve come parametro la lista dei giocatori che hanno partecipato alla partita
      * e restituisce un valore di tipo <i>Integer</i> che rappresenta l'ID del vincitore.
+     * @see Function
      */
     Function<List<Player>, Integer> check();
 }

@@ -7,9 +7,9 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
  */
 public interface Deck {
     /**
-     * Permette di inserire carte all'interno del mazzo
+     * Permette di inserire carte nel mazzo.
      *
-     * @param card carta che vogliamo inserire all'interno del mazzo
+     * @param card carta che vogliamo inserire
      * @see Card
      */
     void insert(Card card);
@@ -22,7 +22,7 @@ public interface Deck {
     int getSize();
 
     /**
-     * Permette di ricercare una carta all'interno del mazzo.
+     * Permette di ricercare una carta all'interno del mazzo.<br />
      * Il metodo ritorna la posizione in cui si trova la carta che stiamo cercando e -1 se la carta non esiste.
      *
      * @param card indica la carta che dobbiamo cercare all'interno del mazzo

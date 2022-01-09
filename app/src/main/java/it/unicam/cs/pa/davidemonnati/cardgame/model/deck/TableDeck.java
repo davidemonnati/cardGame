@@ -8,8 +8,7 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.card.Card;
 public interface TableDeck extends Deck {
     /**
      * Permette di prendere una carta dal mazzo.<br>
-     * Nel momento in cui la carta viene presa, per essere spostata in altri mazzi
-     * verrà eliminata dal <i>Deck</i>
+     * Nel momento in cui la carta viene presa dovrà essere eliminata da qui.
      * @return La carta che vogliamo togliere dal mazzo
      * @see Card
      */
@@ -24,7 +23,7 @@ public interface TableDeck extends Deck {
     Card getCard(int pos);
 
     /**
-     * Mescola le carte che ci sono all'interno del mazzo.
+     * Mescola tutte le carte che ci sono nel mazzo.
      */
     void randomizeDeck();
 }

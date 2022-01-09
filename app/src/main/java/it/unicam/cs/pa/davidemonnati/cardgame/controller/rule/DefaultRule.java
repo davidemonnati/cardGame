@@ -6,9 +6,9 @@ import it.unicam.cs.pa.davidemonnati.cardgame.model.table.NeapolitanTable;
 import java.util.function.BiConsumer;
 
 /**
- * Regola base di gioco, che consiste nel:
+ * Regola base di gioco, che consiste nel: <br />
  * Il giocatore ha delle carte in mano, a turno si gioca una carta e chi ha buttato la carta con il valore più alto
- * si aggiudica la presa.
+ * si aggiudica la presa. <br /><br />
  * Questa è solamente una semplice regola per fare test e non rappresenta in alcun modo nessun tipo di gioco
  * di carte esistente.
  */

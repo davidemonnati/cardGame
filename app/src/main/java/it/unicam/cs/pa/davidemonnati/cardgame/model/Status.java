@@ -1,11 +1,11 @@
 package it.unicam.cs.pa.davidemonnati.cardgame.model;
 
 /**
- * Classe che rappresenta lo stato attuale del gioco
+ * Classe che rappresenta lo stato attuale del gioco.
  */
 public class Status {
     /**
-     * Unica istanza della classe
+     * Classe singleton.
      */
     private static Status instance = null;
     /**
@@ -15,13 +15,18 @@ public class Status {
     private boolean status;
 
     /**
-     * L'oggetto <i>status</i> viene inizializzato quando viene istanziato il controller <i>Game</i>,
-     * per questo motivo di default assume come valore: <b>true</b>.
+     * L'oggetto <i>status</i> viene inizializzato quando viene istanziato il controller <i>Game</i> quindi quando
+     * inizia la partita, per questo motivo di default assume il valore <b>true</b>.
      */
     private Status() {
         this.status = true;
     }
 
+    /**
+     * Crea l'istanza della classe se questa è uguale a <i>null</i>, ritorna l'istanza esistete altrimenti.
+     *
+     * @return istanza della classe
+     */
     public static Status getInstance() {
         if (instance == null) {
             instance = new Status();

@@ -16,11 +16,12 @@ public interface View {
     void open();
 
     /**
-     * Aggiorna lo stato della view chiedendo ogni volta al {@link Player} quale carta vuole giocare.
+     * Aggiorna lo stato della <i>view</i> stampando le informazioni sulla partita e chiedendo ogni volta al
+     * {@link Player} quale carta vuole giocare.
      *
-     * @param hand   mano del giocatore per stampare l'elenco delle carte
-     * @param player per stampare username e punteggio
-     * @return valore intero che rappresenta la carta che si vuole giocare, nella mano
+     * @param hand   mano del giocatore che possiede il turno
+     * @param player per la stampa di username e punteggio
+     * @return valore intero che rappresenta la posizione della carta che si vuole giocare
      * @throws IOException           Eccezione che viene lanciata quando ci sono errori durante l'inserimento di dati
      *                               da tastiera
      * @throws NumberFormatException Eccezione che viene lanciata quando ci sono errori durante la conversione del dato
@@ -30,7 +31,7 @@ public interface View {
     int updateState(Hand hand, Player player) throws IOException, NumberFormatException;
 
     /**
-     * Mostra lo stato finale della view, ovvero quando è terminata la partita.
+     * Mostra lo stato finale della view, ovvero le info di fine partita.
      *
      * @param players per visualizzare lo stato finale di tutti i giocatori
      */
